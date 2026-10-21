@@ -1,0 +1,6 @@
+{
+  "name": "Study Studio XSTK",
+  "description": "Nền tảng học tập, luyện thi, gia sư AI và phòng thí nghiệm tương tác Xác suất & Thống kê",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

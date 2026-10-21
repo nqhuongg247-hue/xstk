@@ -1,0 +1,673 @@
+# PROMPT TỔNG THỂ NÂNG CẤP WEBSITE STUDY STUDIO — XSTK BUSINESS SIMULATOR
+
+## I. VAI TRÒ VÀ NHIỆM VỤ
+
+Bạn là chuyên gia phát triển website, UI/UX Designer, lập trình viên frontend, chuyên gia ứng dụng AI trong giáo dục và chuyên gia Xác suất – Thống kê (XSTK).
+
+Tôi đang phát triển website **Study Studio — Hệ thống Luyện thi và Trợ lý Đại học**, trong đó có khu vực học tập XSTK, gia sư AI, phòng thí nghiệm xác suất, hệ thống luyện tập và theo dõi tiến độ học tập.
+
+Tôi sẽ cung cấp mã nguồn hoặc tệp HTML hiện tại của website. Nhiệm vụ của bạn là:
+
+1. Kiểm tra trực tiếp cấu trúc, mã nguồn, giao diện và các chức năng hiện có.
+2. Sửa những lỗi tôi mô tả, đặc biệt là lỗi giao diện sidebar, đăng nhập, lộ trình học, gia sư AI, định dạng câu trả lời và chức năng giọng nói.
+3. Nâng cấp phòng thí nghiệm xác suất với nhiều mô phỏng trực quan, có thể tương tác và thay đổi tham số.
+4. Giữ lại và hoàn thiện các tính năng XSTK đã có trong website.
+5. Tích hợp các yêu cầu mới vào cùng một sản phẩm thống nhất, không tạo những trang hoặc dự án rời rạc không cần thiết.
+6. Kiểm thử các luồng tương tác, sửa lỗi phát sinh và bàn giao mã nguồn hoàn chỉnh.
+
+**Yêu cầu quan trọng:** Không chỉ đưa ra nhận xét, kế hoạch hoặc đoạn mã minh họa. Hãy trực tiếp chỉnh sửa mã nguồn hiện có và trả lại phiên bản website hoàn chỉnh có thể chạy được.
+
+Không tự ý xóa những chức năng đang hoạt động tốt. Trước khi sửa, hãy xác định cấu trúc dự án, công nghệ đang sử dụng, các thành phần dùng chung và những tính năng có nguy cơ bị ảnh hưởng.
+
+Nếu dự án hiện tại dùng HTML, CSS và JavaScript thuần, hãy ưu tiên giữ nguyên kiến trúc đó, trừ khi có lý do kỹ thuật rõ ràng để thay đổi. Nếu đang sử dụng React, Vite hoặc framework khác, hãy tiếp tục sử dụng kiến trúc hiện có.
+
+---
+
+## II. NGUYÊN TẮC THIẾT KẾ VÀ BẢO TOÀN GIAO DIỆN
+
+Giữ nhận diện thương hiệu Study Studio với bảng màu:
+
+- Xanh rừng: #1B3D2F.
+- Olive: #5B6F2B.
+- Vàng đồng: #D6A64F.
+- Trắng ngà: #F4F3EC.
+- Màu xanh sáng dành cho điểm nhấn tương tác và trạng thái thành công, nhưng phải bảo đảm độ tương phản dễ đọc.
+
+Sử dụng Arial xuyên suốt để bảo đảm hiển thị ổn định. Thiết kế hiện đại, chuyên nghiệp, thân thiện với sinh viên, có cảm giác như một nền tảng học tập thực tế.
+
+Ưu tiên khả năng đọc, phân cấp thông tin, khoảng cách hợp lý và thao tác thuận tiện. Không lạm dụng hiệu ứng phát sáng, hoạt ảnh, huy hiệu hoặc các chi tiết trang trí gây rối.
+
+Toàn bộ giao diện phải tương thích với máy tính, máy tính bảng và điện thoại. Không để văn bản, công thức, nút, thẻ, biểu đồ hoặc nội dung hội thoại bị cắt, tràn hoặc chồng lấp.
+
+---
+
+## III. SỬA SIDEBAR VÀ KHU VỰC TÀI KHOẢN
+
+### 3.1. Loại bỏ các nhãn gây rối
+
+Rà soát sidebar và loại bỏ những huy hiệu trang trí không cần thiết như:
+
+- “Nổi bật”.
+- “Voice”.
+- “7 chương” hiển thị như một nhãn dán cạnh mục điều hướng.
+- Các huy hiệu tương tự chỉ có tác dụng trang trí mà không cung cấp thông tin cần thiết.
+
+Không xóa chức năng thực sự của mục tương ứng. Ví dụ, mục kho kiến thức vẫn phải có đủ bảy chương nếu đây là cấu trúc nội dung học tập; chỉ bỏ nhãn gây rối trên sidebar.
+
+Giữ tên mục điều hướng rõ ràng, dễ hiểu, không bị cắt chữ. Có thể dùng tooltip khi tên quá dài nhưng không được thay thế hoàn toàn tên mục bằng tooltip.
+
+### 3.2. Thiết kế lại khu vực tài khoản
+
+Khu vực tài khoản chỉ hiển thị thông tin của người đang đăng nhập:
+
+- Ảnh đại diện hoặc ảnh mặc định.
+- Họ tên.
+- Vai trò hoặc thông tin sinh viên nếu đã được lưu hợp lệ.
+- Trạng thái đăng nhập.
+- Nút đăng nhập hoặc đăng xuất phù hợp với trạng thái hiện tại.
+
+Không hiển thị đồng thời các tên “Hương”, “Mai”, “Tuấn” dưới dạng các nút chuyển tài khoản nếu đây chỉ là dữ liệu minh họa hoặc danh sách tài khoản mẫu.
+
+Nếu người dùng chưa đăng nhập, hiển thị giao diện khách với nút “Đăng nhập”. Không hiển thị tên, ảnh đại diện hoặc dữ liệu của một tài khoản khác.
+
+Nếu có chức năng chuyển tài khoản thực sự, hãy đặt trong menu tài khoản riêng, không chiếm diện tích sidebar.
+
+### 3.3. Tối ưu sidebar
+
+- Có thể thu gọn và mở rộng sidebar.
+- Trên điện thoại, sidebar nên hoạt động như menu trượt.
+- Khu vực tài khoản không được che nội dung điều hướng.
+- Không để thanh cuộn, thanh cố định hoặc nội dung trang đè lên nhau.
+- Khi sidebar thu gọn, biểu tượng phải dễ hiểu và có tooltip.
+- Giữ màu sắc, khoảng cách và trạng thái mục đang chọn nhất quán.
+
+---
+
+## IV. HOÀN THIỆN ĐĂNG NHẬP VÀ XÁC MINH EMAIL/SỐ ĐIỆN THOẠI
+
+Tôi muốn hệ thống tài khoản rõ ràng và đáng tin cậy hơn.
+
+### 4.1. Luồng đăng nhập
+
+Thiết kế các màn hình:
+
+1. Đăng nhập bằng email hoặc số điện thoại và phương thức xác thực phù hợp.
+2. Đăng ký tài khoản mới.
+3. Xác minh email hoặc số điện thoại.
+4. Nhập mã xác minh nếu hệ thống hỗ trợ OTP.
+5. Gửi lại mã với thời gian chờ hợp lý.
+6. Thông báo lỗi, hết hạn mã và xác minh thành công.
+7. Đăng xuất và khôi phục phiên đăng nhập.
+
+Chỉ cho phép người dùng sử dụng các chức năng yêu cầu tài khoản sau khi xác thực thành công theo chính sách của hệ thống.
+
+### 4.2. Xác minh thật, không giả lập
+
+Trước tiên, hãy kiểm tra website có backend, dịch vụ xác thực hoặc nhà cung cấp như Firebase Authentication hay chưa.
+
+Nếu đã có, hãy tích hợp vào hệ thống hiện tại.
+
+Nếu chưa có, hãy:
+
+- Đề xuất phương án tích hợp xác thực phù hợp với kiến trúc hiện tại.
+- Tạo giao diện và luồng tích hợp rõ ràng.
+- Chỉ sử dụng OTP thật khi đã kết nối dịch vụ gửi email hoặc SMS tương ứng.
+- Không tự tạo mã OTP ở frontend rồi tuyên bố rằng mã đã được gửi.
+- Không hiển thị “Đã gửi mã thành công” nếu chưa nhận được xác nhận từ dịch vụ.
+- Không lưu mật khẩu dạng văn bản thuần trong localStorage.
+- Không để lộ khóa bí mật hoặc thông tin xác thực nhạy cảm trong mã frontend.
+- Có xử lý lỗi mạng, hết hạn phiên và trường hợp người dùng nhập sai thông tin.
+
+Nếu chưa thể kết nối dịch vụ bên ngoài, hãy thông báo rõ chức năng nào đang chờ cấu hình. Không giả vờ rằng đăng nhập hoặc xác minh đã hoạt động.
+
+Không yêu cầu người dùng cung cấp số điện thoại hoặc email thật trong môi trường thử nghiệm nếu chưa cần thiết.
+
+---
+
+## V. LỘ TRÌNH HỌC PHẢI HIỂN THỊ NỘI DUNG THỰC TẾ
+
+Hiện tại, khi nhấn vào lộ trình học, tôi muốn nhìn thấy ngay mình sẽ học những gì thay vì chỉ thấy một mục điều hướng hoặc một thông tin ngầm.
+
+Hãy xây dựng trang “Lộ trình học XSTK” đầy đủ.
+
+### 5.1. Cấu trúc lộ trình
+
+Hiển thị các chương học theo trình tự, ví dụ:
+
+- Chương 1: Quy tắc đếm và các khái niệm xác suất cơ bản.
+- Chương 2: Xác suất có điều kiện, độc lập, xác suất toàn phần và công thức Bayes.
+- Chương 3: Biến ngẫu nhiên rời rạc, liên tục, kỳ vọng và phương sai.
+- Chương 4: Các phân phối xác suất: Nhị thức, Poisson, Chuẩn, hình học, đều và mũ.
+- Chương 5: Phân phối đồng thời, hiệp phương sai và các mối quan hệ giữa biến ngẫu nhiên.
+- Chương 6: Thống kê mô tả, lấy mẫu, phân phối lấy mẫu và định lý giới hạn trung tâm.
+- Chương 7: Ước lượng, khoảng tin cậy, kiểm định giả thuyết, tương quan và hồi quy.
+
+Đây là cấu trúc đề xuất. Hãy ưu tiên chương trình thực tế, tài liệu và dữ liệu hiện có của website nếu đã được cung cấp. Không tuyên bố nội dung đề xuất là giáo trình chính thức của trường.
+
+### 5.2. Nội dung từng chương
+
+Mỗi chương phải hiển thị:
+
+- Mục tiêu học tập.
+- Các bài học nhỏ.
+- Khái niệm và công thức trọng tâm.
+- Điều kiện áp dụng công thức.
+- Ví dụ minh họa.
+- Bài tập luyện tập.
+- Mô phỏng có liên quan nếu có.
+- Trạng thái chưa học, đang học hoặc hoàn thành.
+- Tiến độ phần trăm.
+- Nút “Bắt đầu học” hoặc “Tiếp tục học”.
+
+Khi nhấn vào một chương, mở phần nội dung chi tiết ngay trong trang hoặc điều hướng đến trang học tương ứng. Khi nhấn “Tiếp tục học”, chuyển đến bài chưa hoàn thành phù hợp với dữ liệu tiến độ thực tế.
+
+### 5.3. Trực quan hóa lộ trình
+
+Thiết kế lộ trình dạng danh sách theo chiều dọc hoặc các thẻ chương có đường nối thể hiện trình tự học.
+
+Mỗi chương có thể mở rộng hoặc thu gọn. Đường nối và biểu tượng chỉ mang tính hỗ trợ định hướng, không được gây cản trở thao tác.
+
+Nếu người học chưa làm bài hoặc chưa có dữ liệu tiến độ, hãy hiển thị trạng thái bắt đầu học thay vì tự đánh dấu đã hoàn thành.
+
+---
+
+## VI. NÂNG CẤP GIA SƯ AI VÀ KHẮC PHỤC LỖI ĐỊNH DẠNG CÂU TRẢ LỜI
+
+Đây là một trong những yêu cầu ưu tiên cao nhất.
+
+Khung gia sư AI hiện quá nhỏ, khó đọc, và nội dung phản hồi đôi khi dính liền nhau. Một số câu trả lời hiển thị nguyên ký hiệu `**` thay vì định dạng chữ đậm hoặc danh sách gạch đầu dòng.
+
+Hãy sửa cả giao diện, cách hiển thị nội dung và luồng hội thoại.
+
+### 6.1. Mở rộng khung gia sư AI
+
+- Tăng chiều rộng và chiều cao vùng hội thoại.
+- Trên desktop, ưu tiên một khu vực làm việc rộng, có thể chiếm phần lớn chiều ngang nội dung chính.
+- Có thể sử dụng bố cục hội thoại trung tâm và một cột phụ chứa chương đang học, công thức hoặc tiến độ nếu còn đủ không gian.
+- Trên điện thoại, chuyển thành một cột, không tạo thanh cuộn ngang.
+- Tin nhắn người dùng và gia sư cần có phân biệt trực quan nhưng không quá khác biệt về màu sắc.
+- Ô nhập câu hỏi phải dễ nhìn, đủ rộng, có thể tự tăng chiều cao khi nhập nội dung dài.
+- Nút gửi, nút dừng phản hồi, nút xóa nội dung nhập và trạng thái đang trả lời phải hoạt động đúng.
+- Có thể thêm nút mở rộng toàn màn hình cho phiên học dài.
+
+Không đặt chiều cao cứng khiến công thức, danh sách hoặc lời giải dài bị cắt.
+
+### 6.2. Sửa hoàn toàn lỗi Markdown
+
+Hãy kiểm tra toàn bộ quy trình từ khi AI tạo câu trả lời đến khi giao diện hiển thị.
+
+Lỗi cần xử lý:
+
+- Hiển thị nguyên ký hiệu `**chữ đậm**` thay vì chữ đậm.
+- Dấu `**` bị dính với văn bản.
+- Các đoạn văn bị dính thành một khối dài.
+- Danh sách dùng dấu gạch đầu dòng không được xuống dòng.
+- Công thức, mã nguồn hoặc ký hiệu toán học làm vỡ bố cục.
+- Dữ liệu Markdown bị xử lý như văn bản thuần.
+- Nội dung đang được stream bị nhấp nháy hoặc hiển thị sai định dạng.
+
+Thực hiện các yêu cầu:
+
+1. Xác định định dạng đầu ra hiện tại của API AI và cách website render câu trả lời.
+2. Nếu AI trả về Markdown, hãy sử dụng thư viện Markdown phù hợp với framework hiện tại hoặc viết bộ xử lý có kiểm soát.
+3. Hỗ trợ tiêu đề, đoạn văn, danh sách, chữ đậm, chữ nghiêng, bảng, liên kết và khối mã.
+4. Xử lý công thức toán học bằng MathJax hoặc KaTeX nếu dự án hỗ trợ; nếu chưa có, hãy chọn phương án phù hợp với kiến trúc hiện tại.
+5. Không chỉ xóa toàn bộ dấu `**` bằng replace vì việc đó có thể làm hỏng nội dung Markdown hoặc công thức.
+6. Nếu AI trả về văn bản thuần, hãy giữ nguyên nội dung nhưng định dạng lại theo cấu trúc dễ đọc khi có thể xác định chắc chắn.
+7. Nếu câu trả lời được stream từng phần, hãy bảo đảm trạng thái đang stream và trạng thái hoàn tất đều hiển thị ổn định.
+8. Làm sạch HTML đầu vào trước khi hiển thị để tránh XSS; không cho phép HTML hoặc JavaScript không đáng tin cậy thực thi trực tiếp.
+
+### 6.3. Quy tắc định dạng câu trả lời của gia sư
+
+Cập nhật system prompt hoặc prompt nền của gia sư AI để ưu tiên câu trả lời có cấu trúc.
+
+Quy tắc đầu ra:
+
+- Mở đầu bằng câu trả lời hoặc nhận định chính.
+- Chia nội dung thành các phần nhỏ có tiêu đề khi cần.
+- Dùng danh sách Markdown thực sự với mỗi ý nằm trên một dòng riêng.
+- Chỉ dùng `**...**` khi muốn nhấn mạnh nội dung và giao diện có hỗ trợ Markdown.
+- Không viết các gạch đầu dòng thành một đoạn văn liên tục.
+- Không đặt toàn bộ câu trả lời trong một khối mã.
+- Với bài toán XSTK, trình bày: **Dữ kiện → Phương pháp/công thức → Thay số → Kết quả → Giải thích** khi phù hợp.
+- Với câu hỏi lý thuyết, trình bày: **Khái niệm → Điều kiện áp dụng → Ví dụ → Lưu ý** khi phù hợp.
+- Giải thích bằng tiếng Việt dễ hiểu, phù hợp với sinh viên.
+- Không lặp lại yêu cầu của người học một cách dài dòng.
+
+Ví dụ về định dạng mong muốn:
+
+**Công thức xác suất có điều kiện**
+
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\quad P(B)>0
+\]
+
+Trong đó:
+
+- \(P(A\mid B)\): xác suất xảy ra A khi biết B đã xảy ra.
+- \(P(A\cap B)\): xác suất cả A và B cùng xảy ra.
+- \(P(B)\): xác suất xảy ra B.
+
+**Lưu ý:** Công thức này yêu cầu \(P(B)>0\).
+
+Đây chỉ là ví dụ về định dạng. Hãy bảo đảm giao diện thực sự hiển thị chữ đậm, công thức và danh sách đúng cách, không để lộ các ký hiệu Markdown thô.
+
+### 6.4. Giữ ngữ cảnh học tập
+
+Gia sư cần hỗ trợ sinh viên:
+
+- Giải thích khái niệm và công thức.
+- Phân tích đề bài.
+- Gợi ý phương pháp giải.
+- Hướng dẫn từng bước.
+- Phân tích lỗi sai.
+- Tạo ví dụ tương tự để luyện tập.
+- Liên hệ nội dung với mô phỏng trong phòng thí nghiệm xác suất.
+
+Không tự khẳng định rằng AI đã đọc tài liệu hoặc dữ liệu mà hệ thống chưa cung cấp.
+
+---
+
+## VII. SỬA VÀ HOÀN THIỆN CHỨC NĂNG GIỌNG NÓI
+
+Hiện tại, chức năng giọng nói chưa hoạt động đúng. Tôi muốn có thể nói trực tiếp với gia sư AI thay vì chỉ nhập văn bản.
+
+### 7.1. Nhận dạng giọng nói
+
+- Kiểm tra chức năng nhận dạng giọng nói hiện tại và nguyên nhân khiến người dùng không thể nói.
+- Nếu trình duyệt hỗ trợ Web Speech API, có thể dùng SpeechRecognition hoặc webkitSpeechRecognition.
+- Hỗ trợ tiếng Việt, ưu tiên mã ngôn ngữ `vi-VN`.
+- Khi người dùng nhấn nút micro, yêu cầu quyền truy cập microphone nếu cần.
+- Hiển thị trạng thái rõ ràng: sẵn sàng, đang nghe, đang chuyển lời nói thành văn bản, lỗi microphone hoặc trình duyệt không hỗ trợ.
+- Hiển thị bản ghi nhận dạng để người dùng kiểm tra trước khi gửi.
+- Có nút dừng ghi âm và sửa nội dung nhận dạng.
+- Không tự gửi câu hỏi khi người dùng chưa xác nhận, trừ khi có chế độ gửi tự động được bật rõ ràng.
+- Xử lý trường hợp người dùng từ chối quyền microphone, microphone đang được ứng dụng khác sử dụng hoặc kết nối bị gián đoạn.
+
+### 7.2. Gia sư trả lời bằng giọng nói
+
+- Nếu có hỗ trợ Text-to-Speech, cho phép đọc câu trả lời của gia sư bằng tiếng Việt.
+- Có nút phát, tạm dừng, tiếp tục và dừng đọc.
+- Không tự phát âm thanh gây bất ngờ cho người dùng.
+- Không đọc các ký hiệu Markdown thô, thẻ HTML hoặc cú pháp LaTeX khó nghe.
+- Chuyển công thức sang cách đọc dễ hiểu khi có thể.
+- Không đọc lại toàn bộ lịch sử mỗi khi AI tạo câu trả lời mới.
+- Đồng bộ trạng thái nút giọng nói với trạng thái phát âm thanh.
+
+### 7.3. Giới hạn kỹ thuật
+
+Nhận dạng giọng nói của trình duyệt có thể khác nhau theo trình duyệt và thiết bị. Hãy kiểm tra khả năng hỗ trợ thực tế.
+
+Nếu cần API hoặc dịch vụ bên ngoài để nhận dạng giọng nói nâng cao, hãy chỉ rõ phần nào cần cấu hình. Không tạo giao diện giả vờ đang nghe hoặc đang nói khi thực tế không có dữ liệu âm thanh.
+
+Nếu giọng nói chưa thể hoạt động trong môi trường hiện tại, hãy giữ tính năng nhập văn bản hoạt động bình thường và hiển thị thông báo lỗi có hướng dẫn khắc phục.
+
+---
+
+## VIII. NÂNG CẤP PHÒNG THÍ NGHIỆM XÁC SUẤT
+
+Xây dựng một khu vực riêng có tên **Phòng thí nghiệm xác suất**.
+
+Mục tiêu là giúp sinh viên quan sát được quy luật xác suất thông qua thí nghiệm ảo, thay đổi tham số, chạy nhiều lần và so sánh xác suất lý thuyết với tần suất thực nghiệm.
+
+Không chỉ tạo ảnh minh họa hoặc biểu đồ tĩnh. Các mô phỏng phải có thể tương tác thực sự.
+
+### 8.1. Giao diện phòng thí nghiệm
+
+Trang chính hiển thị các thẻ mô phỏng. Mỗi thẻ có:
+
+- Tên mô phỏng.
+- Hình minh họa hoặc biểu tượng.
+- Kiến thức XSTK liên quan.
+- Mục tiêu học tập ngắn.
+- Nút “Bắt đầu mô phỏng”.
+
+Có thể chia thành các nhóm: xác suất cơ bản, biến ngẫu nhiên và phân phối, xác suất có điều kiện và mô phỏng ứng dụng.
+
+Khi người dùng chọn một mô phỏng, mở khu vực làm thí nghiệm với các nút điều khiển, kết quả, biểu đồ và phần giải thích.
+
+### 8.2. Mô phỏng tung đồng xu
+
+Cho phép chọn:
+
+- Một đồng xu hoặc nhiều đồng xu.
+- Số lần tung.
+- Đồng xu công bằng hoặc xác suất ngửa tùy chỉnh.
+- Tung một lần hoặc chạy hàng loạt.
+- Tốc độ hoạt ảnh.
+
+Hiển thị:
+
+- Kết quả từng lần tung.
+- Số lần ngửa và số lần sấp.
+- Tỷ lệ thực nghiệm.
+- Xác suất lý thuyết.
+- Biểu đồ tỷ lệ tích lũy theo số lần tung.
+
+Giải thích rằng khi số lần thử tăng, tần suất thực nghiệm thường có xu hướng gần xác suất lý thuyết trong điều kiện mô hình phù hợp; không khẳng định nó luôn tăng đều hoặc luôn tiến gần sau một số lần cố định.
+
+### 8.3. Mô phỏng gieo xúc xắc
+
+Cho phép:
+
+- Chọn một hoặc nhiều xúc xắc.
+- Gieo một lần hoặc nhiều lần.
+- Chọn xúc xắc sáu mặt công bằng hoặc xác suất các mặt tùy chỉnh nếu mô hình hỗ trợ.
+- Phân tích một mặt cụ thể, tổng điểm hoặc biến cố như tổng bằng 7.
+
+Hiển thị:
+
+- Kết quả từng lần gieo.
+- Tần suất xuất hiện từng mặt.
+- Phân phối thực nghiệm.
+- Phân phối lý thuyết.
+- Biểu đồ cột so sánh hai phân phối.
+
+Với nhiều xúc xắc, tính đúng phân phối của tổng điểm theo số xúc xắc và quy tắc gieo thực tế.
+
+### 8.4. Mô phỏng rút bi từ hộp
+
+Cho phép người dùng tùy chỉnh số lượng bi đỏ, xanh, vàng hoặc màu khác.
+
+Có lựa chọn:
+
+- Rút có hoàn lại.
+- Rút không hoàn lại.
+- Chọn số bi cần rút.
+- Chọn biến cố muốn theo dõi.
+
+Hiển thị xác suất lý thuyết và xác suất thực nghiệm, giải thích rõ sự khác biệt giữa rút có hoàn lại và không hoàn lại.
+
+Với rút không hoàn lại, phải cập nhật số lượng bi sau mỗi lượt rút và không cho phép rút nhiều hơn số bi còn lại.
+
+### 8.5. Mô phỏng rút bài
+
+Tạo bộ bài tiêu chuẩn 52 lá, không tính Joker, nếu người dùng không thay đổi cấu hình.
+
+Cho phép thử các biến cố như:
+
+- Rút được một lá Át.
+- Rút được lá cơ.
+- Rút được lá đỏ.
+- Rút được một cặp bài khi rút nhiều lá.
+
+Hiển thị số trường hợp thuận lợi, tổng số trường hợp, xác suất lý thuyết và kết quả thực nghiệm.
+
+Phải phân biệt đúng rút có hoàn lại và không hoàn lại.
+
+### 8.6. Mô phỏng xác suất có điều kiện và Bayes
+
+Xây dựng tình huống minh họa có thể điều chỉnh tham số, chẳng hạn kiểm tra chất lượng sản phẩm hoặc một phép kiểm tra chẩn đoán giả định.
+
+Cho phép thay đổi:
+
+- Tỷ lệ nền.
+- Độ nhạy.
+- Độ đặc hiệu hoặc tỷ lệ dương tính giả.
+- Số lượng mẫu mô phỏng.
+
+Hiển thị xác suất trước khi có thông tin, xác suất sau khi quan sát kết quả và sơ đồ cây hoặc bảng tần số để giải thích công thức Bayes.
+
+Không sử dụng các con số mô phỏng để đưa ra kết luận y tế thực tế. Ghi rõ đây là tình huống giáo dục.
+
+### 8.7. Mô phỏng phân phối xác suất
+
+Tạo mô phỏng cho các phân phối:
+
+- Bernoulli.
+- Nhị thức.
+- Poisson.
+- Chuẩn.
+- Đều.
+- Mũ.
+
+Cho phép điều chỉnh các tham số hợp lệ của từng phân phối.
+
+Hiển thị:
+
+- Biểu đồ PMF đối với phân phối rời rạc hoặc PDF đối với phân phối liên tục.
+- Kỳ vọng.
+- Phương sai.
+- Các tham số đang sử dụng.
+- Kết quả mẫu được sinh.
+- So sánh mô phỏng với giá trị lý thuyết.
+
+Với phân phối liên tục, giải thích rằng xác suất tại một điểm riêng lẻ bằng 0 trong mô hình liên tục; xác suất được tính trên khoảng.
+
+### 8.8. Mô phỏng tỷ lệ thành công và xác suất ứng dụng
+
+Cho phép người học nhập xác suất thành công của một lần thử và số lần thử.
+
+Ví dụ: một chiến dịch quảng cáo có tỷ lệ chuyển đổi giả định là 5%; mô phỏng số lượt chuyển đổi trong 100 lượt tiếp cận.
+
+Hiển thị:
+
+- Số lần thành công.
+- Tỷ lệ thành công thực nghiệm.
+- Phân phối số lần thành công.
+- Xác suất đạt ít nhất một số thành công nhất định.
+- Sự khác nhau giữa kỳ vọng và kết quả thực tế.
+
+Tình huống chỉ là mô hình giả định để học XSTK, không được trình bày kết quả mô phỏng như dự báo kinh doanh chắc chắn.
+
+### 8.9. Định luật số lớn và định lý giới hạn trung tâm
+
+Bổ sung mô phỏng giúp người học quan sát:
+
+- Tần suất thực nghiệm thay đổi theo số lần thử.
+- Trung bình mẫu thay đổi qua các mẫu.
+- Phân phối của trung bình mẫu khi kích thước mẫu tăng.
+- Sự khác biệt giữa phân phối của dữ liệu gốc và phân phối lấy mẫu.
+
+Cho phép chọn phân phối gốc và kích thước mẫu. Hiển thị biểu đồ phù hợp, giải thích điều kiện và giới hạn của định lý giới hạn trung tâm.
+
+Không khẳng định mọi phân phối đều đạt gần phân phối Chuẩn ở cùng một kích thước mẫu.
+
+### 8.10. Các điều khiển chung
+
+Mỗi mô phỏng nên có:
+
+- Nút chạy thử.
+- Nút chạy nhiều lần.
+- Nút tạm dừng khi có hoạt ảnh.
+- Nút đặt lại.
+- Nút thay đổi tham số.
+- Nút xem công thức.
+- Nút giải thích kết quả.
+- Biểu đồ tương tác.
+- Bảng kết quả hoặc lịch sử thử nghiệm khi phù hợp.
+
+Khi thay đổi tham số, cập nhật kết quả và biểu đồ theo mô hình mới.
+
+Sử dụng bộ sinh số ngẫu nhiên phù hợp với mục đích giáo dục. Nếu dùng giả ngẫu nhiên, hãy ghi rõ đây là mô phỏng máy tính, không phải phép thử vật lý thực tế.
+
+### 8.11. Cấu trúc phần giải thích
+
+Mỗi thí nghiệm phải trả lời được:
+
+1. Chúng ta đang mô phỏng điều gì?
+2. Biến cố hoặc biến ngẫu nhiên là gì?
+3. Công thức xác suất lý thuyết nào được sử dụng?
+4. Kết quả lý thuyết được tính như thế nào?
+5. Kết quả mô phỏng có ý nghĩa gì?
+6. Vì sao kết quả thực nghiệm có thể khác lý thuyết?
+7. Khi thay đổi tham số hoặc tăng số lần thử, điều gì có thể thay đổi?
+
+Không chỉ hiển thị con số mà không giải thích.
+
+---
+
+## IX. TỔNG HỢP VÀ BẢO TOÀN CÁC TÍNH NĂNG XSTK HIỆN CÓ
+
+Không được bỏ qua các yêu cầu học tập đã có trong website. Hãy tích hợp và kiểm tra các chức năng dưới đây.
+
+### 9.1. Tạo 5 bài tập tự luận
+
+Khi người học tạo đề, sinh đúng 5 bài tập mới theo dạng được chọn hoặc kết hợp nhiều chủ đề.
+
+Phạm vi kiến thức gồm:
+
+- Quy tắc đếm và tổ hợp.
+- Xác suất cổ điển, có điều kiện, độc lập, toàn phần và Bayes.
+- Biến ngẫu nhiên rời rạc và liên tục.
+- Phân phối Nhị thức, Poisson, Chuẩn, hình học, đều và mũ.
+- Kỳ vọng, phương sai, phân phối đồng thời và hiệp phương sai.
+- Thống kê mô tả, lấy mẫu, định lý giới hạn trung tâm.
+- Ước lượng, khoảng tin cậy, kiểm định giả thuyết.
+- Tương quan và hồi quy.
+
+Mỗi bài phải có dữ kiện hợp lệ, yêu cầu rõ ràng và không phụ thuộc vào một bài khác.
+
+Cho phép người học nhập bài làm dưới từng câu.
+
+Trong chế độ luyện tập, cung cấp gợi ý chiến lược giải thay vì tiết lộ đáp số cuối cùng ngay từ đầu. Chỉ hiển thị đáp án và lời giải đầy đủ khi người học chủ động yêu cầu hoặc nộp bài theo đúng luồng thiết kế.
+
+### 9.2. Trắc nghiệm XSTK
+
+Tạo đề ngẫu nhiên gồm đúng 5 câu, mỗi câu có 4 phương án A, B, C, D.
+
+Ưu tiên xây dựng ngân hàng câu hỏi thực sự có đáp án và lời giải đã kiểm tra. Nếu không có đủ dữ liệu để bảo đảm một ngân hàng 1.000 câu chính xác, hãy thông báo số lượng câu hỏi thực tế, không tuyên bố có 1.000 câu khi chưa có.
+
+Trước khi nộp bài, không hiển thị đáp án đúng hoặc lời giải.
+
+Sau khi nộp, hiển thị số câu đúng, điểm trên thang 100, thời gian làm bài, đáp án và giải thích từng câu.
+
+Kiểm tra đáp án, phương án nhiễu, điều kiện áp dụng và quy tắc làm tròn. Không sinh xác suất ngoài khoảng [0,1], mẫu số bằng 0 hoặc tham số không hợp lệ.
+
+### 9.3. Vấn đáp kiến thức
+
+Mỗi lần chỉ hỏi một câu.
+
+Nếu người học trả lời đúng, xác nhận ngắn gọn rồi hỏi câu tiếp theo có độ khó phù hợp.
+
+Nếu trả lời sai, chỉ ra lỗi cụ thể, giải thích ngắn gọn và giúp người học tự sửa.
+
+Theo dõi chủ đề còn yếu dựa trên kết quả thực tế, không tự suy đoán năng lực khi chưa có dữ liệu.
+
+### 9.4. Sơ đồ tư duy XSTK
+
+Giữ sơ đồ tư duy có chủ đề trung tâm và bốn nhánh chính, mỗi nhánh có các nhánh con về khái niệm, công thức, điều kiện áp dụng và mối liên hệ giữa các chủ đề.
+
+Chỉ mở hoặc thu nhánh khi người dùng nhấn hoặc chạm. Cho phép kéo rê, bật/tắt tự căn theo nhánh, đưa sơ đồ về giữa và mở toàn màn hình.
+
+Không để thẻ, đường nối hoặc nội dung bị cắt khi mở nhiều nhánh.
+
+### 9.5. Trợ lý chọn phương pháp giải
+
+Giúp người học nhận diện dạng bài, liên hệ dữ kiện với công thức và kiểm tra điều kiện áp dụng.
+
+Chỉ bắt đầu khi người học chủ động mở và xác nhận sử dụng. Gợi ý phương pháp, không mặc định đưa toàn bộ đáp số cuối cùng.
+
+### 9.6. Thi thử XSTK
+
+Thi thử gồm 25 câu trắc nghiệm và 2 câu tự luận vận dụng, thời gian tối đa 45 phút.
+
+Đồng hồ chỉ bắt đầu khi nhấn “Bắt đầu thi thử”. Khi người học nộp và xác nhận, hoặc hết giờ, hệ thống kết thúc bài thi theo đúng quy trình.
+
+Sau khi nộp, hiển thị điểm, lời giải trắc nghiệm và tiêu chí đánh giá tự luận. Nếu chưa có hệ thống chấm tự luận đáng tin cậy, phải ghi rõ phần tự đánh giá.
+
+### 9.7. Tiến độ và chuỗi ngày học
+
+Chỉ ghi nhận hoạt động học khi người học thực sự làm bài và có kết quả hợp lệ theo quy tắc của hệ thống.
+
+Không tính lượt truy cập website hoặc chỉ mở công cụ thành một ngày học thành công.
+
+Không cộng điểm hoặc streak cho bài nộp trắng hoặc bài có điểm bằng 0.
+
+Với bài tự luận tự đánh giá, phải ghi rõ điểm do người học tự đánh giá, không phải điểm AI chấm.
+
+Lưu tiến độ ổn định qua lần tải lại trang, trong phạm vi khả năng lưu trữ hiện có. Nếu cần đồng bộ giữa thiết bị, hãy dùng hệ thống tài khoản và cơ sở dữ liệu phù hợp thay vì giả định localStorage có thể đồng bộ.
+
+---
+
+## X. YÊU CẦU VỀ ĐỘ CHÍNH XÁC XSTK
+
+Tất cả công thức và kết quả phải được kiểm tra.
+
+- Xác suất phải nằm trong khoảng từ 0 đến 1.
+- Xác suất có điều kiện phải kiểm tra điều kiện mẫu số dương.
+- Phân phối phải có tham số hợp lệ.
+- Phân phối rời rạc và liên tục phải được phân biệt rõ.
+- Kỳ vọng và phương sai phải sử dụng đúng công thức.
+- Công thức Bayes phải xác định đúng các xác suất thành phần.
+- Khoảng tin cậy và kiểm định giả thuyết phải dùng đúng giả định.
+- Không đánh đồng xác suất lý thuyết với tần suất thực nghiệm.
+- Không khẳng định kết quả mô phỏng ngẫu nhiên luôn bằng giá trị kỳ vọng.
+- Không dùng số liệu mô phỏng làm bằng chứng cho một kết luận thực tế chắc chắn.
+
+Khi tạo bài tập hoặc mô phỏng, hãy kiểm tra lại công thức, dữ kiện, kết quả số và nội dung giải thích trước khi hiển thị.
+
+---
+
+## XI. KIỂM THỬ VÀ SỬA LỖI TOÀN WEBSITE
+
+Sau khi hoàn thành các chỉnh sửa, hãy kiểm tra toàn bộ các luồng sau:
+
+### Giao diện
+
+- Sidebar mở, thu gọn và cuộn đúng.
+- Khu vực tài khoản hiển thị đúng trạng thái.
+- Lộ trình học mở đúng chương và bài học.
+- Khung gia sư AI đủ rộng, không cắt câu trả lời.
+- Markdown hiển thị đúng tiêu đề, danh sách, chữ đậm và công thức.
+- Các mô phỏng không tràn màn hình trên desktop và điện thoại.
+- Biểu đồ cập nhật đúng khi thay đổi tham số.
+
+### Chức năng
+
+- Đăng nhập, đăng xuất và xác minh có trạng thái thực tế.
+- Microphone có xử lý quyền truy cập và lỗi.
+- Chức năng đọc câu trả lời không tự phát ngoài ý muốn.
+- Các mô phỏng tạo kết quả hợp lệ và đặt lại được.
+- Các nút không bị vô hiệu hóa hoặc không có hành động.
+- Bài tập, trắc nghiệm và thi thử tính điểm đúng.
+- Tiến độ chỉ được ghi nhận theo quy tắc đã định.
+- Các tính năng cũ không bị hỏng sau khi nâng cấp.
+
+### Kỹ thuật
+
+- Kiểm tra lỗi cú pháp và lỗi JavaScript.
+- Kiểm tra console, request mạng và lỗi API nếu môi trường cho phép.
+- Kiểm tra sự kiện bị gắn nhiều lần.
+- Kiểm tra ID trùng lặp, dữ liệu sai kiểu và trạng thái giao diện không đồng bộ.
+- Kiểm tra bảo mật dữ liệu nhập và nội dung do AI tạo.
+- Kiểm tra khả năng sử dụng trên các kích thước màn hình khác nhau.
+- Không tự nhận đã kiểm thử trên trình duyệt hoặc thiết bị thật nếu chưa thực hiện.
+
+---
+
+## XII. CÁCH TRIỂN KHAI VÀ BÀN GIAO
+
+Thực hiện theo thứ tự:
+
+**Bước 1:** Đọc toàn bộ mã nguồn hiện có, xác định công nghệ, cấu trúc tệp và những chức năng đang hoạt động.
+
+**Bước 2:** Lập danh sách lỗi và xác định tệp hoặc thành phần cần chỉnh sửa.
+
+**Bước 3:** Ưu tiên sửa sidebar, tài khoản, lộ trình học, gia sư AI và lỗi Markdown.
+
+**Bước 4:** Sửa và kiểm tra nhận dạng giọng nói, chức năng đọc câu trả lời.
+
+**Bước 5:** Xây dựng phòng thí nghiệm xác suất với các mô phỏng tương tác thực sự.
+
+**Bước 6:** Tích hợp các tính năng XSTK cũ, kiểm tra sự tương thích và sửa lỗi hồi quy.
+
+**Bước 7:** Chạy kiểm thử, xử lý lỗi và bàn giao sản phẩm.
+
+### Yêu cầu đầu ra
+
+Tôi cần nhận được:
+
+1. Phiên bản website đã chỉnh sửa, không chỉ là bản nhận xét.
+2. Toàn bộ mã nguồn cần thiết để chạy website.
+3. Nếu dự án dùng một tệp HTML độc lập, hãy trả lại một tệp HTML hoàn chỉnh có CSS và JavaScript cần thiết.
+4. Nếu dự án gồm nhiều tệp hoặc dùng framework, hãy chỉnh sửa đúng các tệp liên quan và cung cấp đầy đủ các thay đổi cần thiết; không ép dự án nhiều tệp thành một HTML nếu việc đó làm mất chức năng.
+5. Hướng dẫn chạy website ngắn gọn, đúng với môi trường hiện tại.
+6. Danh sách chức năng đã hoàn thiện, chức năng đã kiểm thử và chức năng còn cần cấu hình API hoặc dịch vụ bên ngoài.
+7. Nếu môi trường hỗ trợ chỉnh sửa trực tiếp dự án, hãy thực hiện trên dự án hiện tại. Nếu không, hãy cung cấp đầy đủ mã nguồn đã sửa và chỉ rõ vị trí từng tệp.
+
+Không trả lời bằng một kế hoạch chung rồi dừng lại. Hãy bắt đầu từ mã nguồn tôi cung cấp và triển khai những thay đổi có thể thực hiện được ngay.
+
+Nếu thiếu một dịch vụ bên ngoài, hãy hoàn thành các phần độc lập trước, sau đó chỉ rõ cấu hình còn thiếu. Không bịa dữ liệu, không giả lập thành công và không khẳng định tính năng đã chạy nếu chưa kiểm tra.
+
+**Mục tiêu cuối cùng:** Study Studio phải trở thành một website học tập XSTK thống nhất, có giao diện dễ sử dụng, gia sư AI dễ đọc và tương tác, lộ trình học rõ ràng, giọng nói hoạt động theo khả năng kỹ thuật thực tế và phòng thí nghiệm xác suất có giá trị học tập thực sự.

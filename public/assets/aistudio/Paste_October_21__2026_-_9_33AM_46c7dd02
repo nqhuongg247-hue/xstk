@@ -1,0 +1,1485 @@
+
+
+# MASTER PROMPT — HOÀN THIỆN STUDY STUDIO XSTK TRÊN NETLIFY
+
+## I. VAI TRÒ VÀ MỤC TIÊU
+
+Bạn là chuyên gia phát triển website full-stack, thiết kế UX/UI, tích hợp Gemini AI, xây dựng hệ thống học tập cá nhân hóa, quản lý cơ sở dữ liệu và triển khai ứng dụng trên Netlify.
+
+Hãy kiểm tra và chỉnh sửa trực tiếp mã nguồn website Study Studio XSTK hiện tại.
+
+Website phục vụ sinh viên học môn Xác suất và Thống kê (XSTK), có kho kiến thức từ tài liệu giảng viên, gia sư AI, luyện tập, chấm bài, sơ đồ tư duy, diễn đàn và hệ thống theo dõi tiến độ học tập.
+
+Mục tiêu lần cập nhật này:
+
+1. Gộp chức năng tải tài liệu tạo bài tập và tải bài làm chấm sửa sai vào một khung duy nhất.
+2. Chuẩn hóa font chữ và cách trình bày toàn bộ website.
+3. Tích hợp nhận diện giọng nói và đọc phản hồi trực tiếp trong Gia sư AI, không giữ một trang vấn đáp bằng giọng nói riêng.
+4. Bổ sung chuỗi ngày học thực tế.
+5. Làm cho diễn đàn học tập hoạt động thật, có dữ liệu dùng chung giữa các tài khoản.
+6. Bổ sung lộ trình học cá nhân hóa.
+7. Bổ sung phòng thí nghiệm XSTK với các mô phỏng xác suất trực quan.
+8. Bổ sung thử thách học tập hằng tuần và bảng xếp hạng.
+9. Bổ sung AI tạo đề thi cá nhân hóa theo năng lực.
+10. Giữ các chức năng cũ khác đang hoạt động và kiểm tra lỗi hồi quy.
+
+### Nguyên tắc bắt buộc
+
+- Đây là dự án hiện có, không phải dự án mới.
+- Không viết lại toàn bộ website hoặc chuyển sang framework khác nếu không có lý do kỹ thuật.
+- Giữ nguyên các chức năng không thuộc phạm vi xóa.
+- Chỉ loại bỏ những chức năng được chỉ định rõ trong Phần II.
+- Website đang triển khai trên Netlify nên mọi thay đổi phải tương thích với cấu trúc, build và quy trình deploy thực tế.
+- Ưu tiên tái sử dụng backend, cơ sở dữ liệu, dịch vụ xác thực, thư viện và component đã có.
+- Không tạo nút bấm giả hoặc báo thành công khi thao tác chưa thực sự hoàn thành.
+- Không dùng localStorage làm nguồn dữ liệu chính cho những chức năng yêu cầu đồng bộ giữa nhiều người dùng hoặc nhiều thiết bị.
+- Không giả vờ đã kết nối Gemini, cơ sở dữ liệu, xác thực hoặc máy chủ khi cấu hình chưa hoàn tất.
+- Không đưa API key, mật khẩu, OTP hay khóa quản trị vào frontend.
+- Sau khi chỉnh sửa, kiểm tra chức năng mới và các chức năng cũ có liên quan.
+- Nếu thiếu API, dịch vụ bên ngoài hoặc cấu hình môi trường, phải báo rõ những phần chưa hoàn tất và hướng dẫn cấu hình cụ thể.
+
+---
+
+## II. XÓA CÁC CHỨC NĂNG KHÔNG CÒN SỬ DỤNG
+
+Hãy xóa hoàn toàn ba chức năng độc lập sau:
+
+1. Mô phỏng Monte Carlo.
+2. Phân tích rủi ro kinh doanh.
+3. Trợ lý chọn phương pháp giải.
+
+Xóa các menu, trang, route, nút, biểu mẫu và logic chỉ phục vụ ba chức năng này. Sắp xếp lại giao diện sau khi xóa để không có khoảng trống hoặc liên kết dẫn đến trang lỗi.
+
+### Chuyển chức năng giọng nói vào Gia sư AI
+
+Xóa mục điều hướng và trang riêng mang tên *“Vấn đáp & giọng nói”* nếu đang tồn tại.
+
+Tuy nhiên, không được xóa khả năng tương tác bằng giọng nói. Thay vào đó, tích hợp tất cả chức năng liên quan trực tiếp vào trang *GIA SƯ AI*:
+
+- Nhập câu hỏi bằng văn bản.
+- Nhấn micro để nói câu hỏi.
+- Chuyển lời nói thành văn bản.
+- Cho phép xem và sửa câu hỏi đã nhận diện trước khi gửi.
+- Gửi câu hỏi đến Gemini.
+- Nhận câu trả lời.
+- Đọc phản hồi thành tiếng.
+- Cho phép bật hoặc tắt đọc phản hồi.
+- Có nút dừng nghe, dừng đọc và bắt đầu lượt trò chuyện mới.
+- Hiển thị trạng thái đang nghe, đang xử lý, đang trả lời và lỗi kết nối.
+
+Đây phải là chức năng của cùng một chatbot Gia sư AI, không tạo một chatbot giọng nói độc lập thứ hai.
+
+### Những chức năng tuyệt đối không được xóa
+
+Giữ nguyên nếu đang có:
+
+- Kho kiến thức XSTK.
+- Gia sư AI.
+- Chấm bài và bảng viết.
+- Luyện tập tự luận.
+- Trắc nghiệm.
+- Thi thử XSTK 45 phút.
+- Sơ đồ tư duy.
+- Thống kê lỗi học tập.
+- Báo cáo lỗi AI.
+- Diễn đàn học tập.
+- Hồ sơ cá nhân.
+- Đăng nhập và đăng ký.
+- Nội dung 7 chương XSTK đã được nhóm cung cấp.
+
+Không xóa logic dùng chung chỉ vì một chức năng khác đã bị loại bỏ.
+
+---
+
+## III. GIAO DIỆN VÀ HỆ THỐNG FONT CHỮ
+
+### 3.1. Phong cách thiết kế
+
+Giữ phong cách Study Studio thống nhất:
+
+- Xanh rừng: #1B3D2F.
+- Olive: #5B6F2B.
+- Vàng đồng: #D6A64F.
+- Nền trắng ngà: #F4F3EC.
+- Font chữ chính: Inter nếu được tải thành công; nếu không, dùng Arial hoặc font sans-serif tương đương.
+- Thẻ bo góc vừa phải, đường viền mảnh và khoảng trắng hợp lý.
+- Tiêu đề đậm, các cấp tiêu đề dễ phân biệt.
+- Menu, nhãn và nút có độ tương phản tốt.
+- Họa tiết toán học trong sidebar nếu đã có phải được giữ nhất quán nhưng không làm rối nội dung.
+
+### 3.2. Rà soát font hiện tại trước khi sửa
+
+Không chỉ đổi font máy móc. Hãy kiểm tra toàn bộ CSS, HTML, component và stylesheet đang sử dụng.
+
+Sửa các vấn đề:
+
+- Font không nhất quán giữa các trang.
+- Tiếng Việt bị lỗi dấu hoặc ký tự lạ.
+- Chữ quá nhỏ, quá lớn hoặc quá dày.
+- Tiêu đề và nội dung không có phân cấp rõ.
+- Chữ bị cắt, đè lên nhau hoặc vượt khỏi thẻ.
+- Công thức toán học bị sai vị trí, mất chỉ số hoặc tràn trên điện thoại.
+- Font tải từ bên ngoài thất bại gây thay đổi bố cục.
+- Nội dung AI dài làm vỡ thẻ hoặc khiến nút bị lệch.
+
+### 3.3. Thang kích thước chữ tham khảo
+
+| Thành phần | Kích thước đề xuất |
+|---|---:|
+| Tiêu đề trang | 24–30px |
+| Tiêu đề khu vực | 20–24px |
+| Tiêu đề thẻ | 16–19px |
+| Nội dung chính | 15–17px |
+| Nội dung phụ | 13–14px |
+| Chú thích | 12–13px |
+| Nút bấm | 14–16px |
+
+Điều chỉnh theo cấu trúc thực tế, không sử dụng quá nhiều cỡ chữ. Nội dung chính cần dễ đọc, không thu nhỏ chữ chỉ để nhét nhiều thông tin vào một vùng.
+
+Sử dụng line-height hợp lý, ưu tiên khoảng 1.5–1.7 cho nội dung và khoảng 1.2–1.35 cho tiêu đề.
+
+### 3.4. Bảo đảm hiển thị XSTK chính xác
+
+- Sử dụng UTF-8.
+- Kiểm tra các dấu tiếng Việt.
+- Hiển thị đúng ký hiệu μ, σ, λ, χ², α, β, tổng, tích phân, phân số và căn.
+- Ưu tiên MathJax, KaTeX hoặc giải pháp công thức hiện có của dự án.
+- Không thay đổi nội dung toán học chỉ vì muốn trình bày đẹp hơn.
+- Công thức phải đọc được trên máy tính và điện thoại.
+- Bảo đảm font fallback hoạt động khi font chính không tải được.
+- Không dùng transform: scale() để che giấu lỗi typography.
+
+### 3.5. Kiểm tra font trên toàn bộ website
+
+Rà soát tối thiểu:
+
+- Trang chủ.
+- Kho kiến thức.
+- Gia sư AI.
+- Chấm bài và bảng viết.
+- Luyện tập tự luận.
+- Trắc nghiệm.
+- Thi thử.
+- Sơ đồ tư duy.
+- Thống kê lỗi.
+- Báo cáo lỗi AI.
+- Diễn đàn.
+- Lộ trình học.
+- Phòng thí nghiệm XSTK.
+- Thử thách tuần.
+- Tạo đề thi cá nhân hóa.
+- Hồ sơ cá nhân và cài đặt.
+
+---
+
+## IV. GỘP TẢI TÀI LIỆU, TẠO BÀI TẬP VÀ CHẤM BÀI VÀO MỘT KHUNG
+
+Đây là yêu cầu bắt buộc.
+
+Hiện tại, trang Chấm bài có khung tải tài liệu và khung chấm bài tách biệt. Hãy gộp hai khu vực thành một component hoặc một khung chức năng duy nhất.
+
+Tên khung:
+
+*TÀI LIỆU & TRỢ LÝ AI XSTK*
+
+Mô tả:
+
+“Tải tài liệu để tạo bài tập hoặc tải bài làm để được AI nhận xét, phát hiện lỗi và gợi ý kiến thức cần ôn tập.”
+
+Không để hai khung lớn nằm nối tiếp nhau theo chiều dọc như giao diện cũ.
+
+### 4.1. Hai nút tải độc lập
+
+Hai nút đặt cạnh nhau trên desktop và xếp dọc trên điện thoại, nhưng luôn nằm trong cùng một khung.
+
+*NÚT 1 — TẢI TÀI LIỆU ĐỂ TẠO BÀI TẬP*
+
+Mô tả: “Tải bài giảng hoặc tài liệu XSTK để AI tạo đề luyện tập theo nội dung đang học.”
+
+Khi nhấn:
+- Mở hộp chọn tệp.
+- Hỗ trợ PDF, DOCX, PPTX, TXT, JPG, PNG và WebP trong phạm vi công cụ thực sự đọc được.
+- Hiển thị tên tệp, dung lượng, định dạng và trạng thái xử lý.
+- Cho phép xem trước và xóa tệp.
+- Đọc nội dung thực tế của tài liệu trước khi tạo đề.
+- Cho phép chọn chương, chủ đề, độ khó và số lượng câu.
+- Mặc định tạo 5 bài tự luận, trừ khi người dùng thay đổi.
+- Có lựa chọn tạo trắc nghiệm với 4 phương án A, B, C, D.
+- Có nút *TẠO BÀI TẬP TỪ TÀI LIỆU*.
+
+*NÚT 2 — TẢI BÀI LÀM ĐỂ CHẤM VÀ SỬA SAI*
+
+Mô tả: “Tải ảnh hoặc PDF bài làm để AI phân tích từng bước và chỉ ra phần cần cải thiện.”
+
+Khi nhấn:
+- Mở hộp chọn tệp riêng.
+- Cho phép tải ảnh hoặc PDF theo khả năng xử lý thực tế.
+- Hiển thị và xem trước tệp.
+- Cho phép xóa hoặc tải lại.
+- Giữ lại chức năng bảng viết trực tiếp bằng chuột hoặc bút cảm ứng nếu đang có.
+- Có khu vực ghi chú đề bài.
+- Có nút *PHÂN TÍCH BÀI LÀM*.
+
+Không được nhầm tệp bài giảng dùng để tạo đề với tệp bài làm dùng để chấm.
+
+### 4.2. Giao diện tương tác
+
+Luồng bố cục:
+
+1. Tiêu đề và mô tả chung.
+2. Hai nút lựa chọn tải tệp.
+3. Biểu mẫu tương ứng với chức năng đang chọn.
+4. Kết quả xử lý được hiển thị ngay trong cùng khung.
+
+Khi chuyển giữa hai chế độ, giữ dữ liệu chưa bị xóa của từng chế độ. Tuyệt đối không chuyển một tệp từ chế độ này sang chế độ khác một cách âm thầm.
+
+### 4.3. Tạo đề từ tài liệu
+
+Khi sinh viên chọn chức năng tạo đề:
+
+1. Đọc nội dung thực tế của tài liệu.
+2. Xác định kiến thức XSTK liên quan.
+3. Cho phép chọn một chủ đề hoặc tổng hợp nhiều chủ đề.
+4. Tạo câu hỏi mới với dữ kiện và yêu cầu rõ ràng.
+5. Kiểm tra tính hợp lệ của công thức và dữ kiện.
+6. Hiển thị đề và khu vực làm bài.
+7. Cho phép tạo bộ đề khác mà không làm mất lịch sử đã nộp.
+
+Bài tập phải độc lập, không chỉ thay số hoặc tên. Không tạo đề từ nội dung chưa đọc được.
+
+Với bài tự luận, có chiến lược giải từng bước, nhưng không hiển thị đáp số cuối cùng của bài gốc ngay từ đầu.
+
+Với trắc nghiệm, ẩn đáp án đúng đến khi sinh viên nộp bài.
+
+### 4.4. Chấm bài và góp ý kiến thức
+
+Trong chế độ tải bài làm, thêm tùy chọn:
+
+*☑ Gợi ý những phần kiến thức tôi nên ôn kỹ*
+
+Người học có thể bật hoặc tắt tùy nhu cầu.
+
+Khi bật, ngoài phần nhận xét bài làm, AI phải cung cấp:
+
+1. Các bước làm đúng.
+2. Các lỗi đã phát hiện.
+3. Nguyên nhân có thể dẫn đến lỗi.
+4. Chương, chủ đề hoặc công thức nên ôn lại.
+5. Lý do nội dung đó liên quan đến lỗi.
+6. Bài tập gợi ý để củng cố.
+7. Mức độ ưu tiên: cần ôn trước, nên củng cố hoặc có thể ôn thêm.
+
+Nếu kho kiến thức đã có tài liệu giảng viên, hãy liên kết tới chương và mục tương ứng khi xác định được chính xác.
+
+Không kết luận sinh viên yếu một chủ đề chỉ từ một lỗi đơn lẻ.
+
+Khi tắt tùy chọn này, vẫn phân tích và sửa lỗi nhưng không hiển thị kế hoạch ôn tập cá nhân.
+
+Nếu không có barem được phê duyệt hoặc chưa đọc rõ bài làm, không đưa ra điểm số chính thức. Ghi rõ giới hạn.
+
+### 4.5. Trạng thái xử lý tệp
+
+Phải phân biệt:
+
+- Chưa chọn tệp.
+- Đã chọn tệp.
+- Đang tải.
+- Đang đọc tài liệu.
+- Đang nhận diện công thức.
+- Cần xác nhận nội dung.
+- Sẵn sàng xử lý.
+- Đang tạo bài tập.
+- Đang phân tích bài làm.
+- Hoàn thành.
+- Xử lý một phần.
+- Thất bại.
+
+Không hiển thị “Đã đọc tài liệu” khi hệ thống chỉ mới nhận tên tệp.
+
+---
+
+## V. GIA SƯ AI GEMINI — TÍCH HỢP GIỌNG NÓI TRỰC TIẾP
+
+Giữ một trang Gia sư AI duy nhất. Không tạo lại trang vấn đáp bằng giọng nói độc lập.
+
+### 5.1. Các chế độ tương tác
+
+Trong cùng giao diện chatbot, cho phép:
+
+- Nhập câu hỏi bằng văn bản.
+- Nói câu hỏi qua micro.
+- Xem câu nói được chuyển thành văn bản.
+- Chỉnh sửa văn bản nhận diện trước khi gửi.
+- Gửi câu hỏi đến Gemini.
+- Nhận phản hồi.
+- Đọc phản hồi thành tiếng.
+- Bật/tắt đọc phản hồi.
+- Dừng nghe hoặc dừng đọc.
+- Tiếp tục cuộc trò chuyện.
+- Tạo cuộc trò chuyện mới.
+
+Hiển thị rõ trạng thái:
+- Đang chờ câu hỏi.
+- Đang nghe.
+- Đang nhận diện.
+- Đang gửi Gemini.
+- Đang tạo phản hồi.
+- Đang đọc phản hồi.
+- Hoàn thành.
+- Lỗi micro.
+- Lỗi mạng.
+- Lỗi API.
+
+Nếu trình duyệt không hỗ trợ nhận diện giọng nói, cung cấp phương án nhập văn bản. Không làm các nút micro chỉ để trang trí.
+
+### 5.2. Câu trả lời linh hoạt
+
+Gemini cần hỗ trợ các yêu cầu:
+
+- Hỏi định nghĩa.
+- Giải thích công thức.
+- Giải thích theo cách dễ hiểu cho người mới học.
+- Phân biệt khái niệm.
+- Giải bài tập.
+- Hỏi tiếp về câu trả lời trước.
+- Tóm tắt chương.
+- Tạo bài tập.
+- Kiểm tra mức độ hiểu.
+- Giải thích lý do chọn công thức.
+
+Không ép mọi câu trả lời đều dài. Điều chỉnh theo mục đích và độ khó của câu hỏi.
+
+### 5.3. Ba quy trình sư phạm 4 bước
+
+Khi giải bài tập, thực hiện đúng:
+
+*Quy trình giải toán*
+1. Tìm hiểu nội dung bài toán.
+2. Xây dựng chương trình giải.
+3. Trình bày lời giải.
+4. Kiểm tra và đánh giá.
+
+Khi học khái niệm:
+
+*Quy trình học khái niệm*
+1. Trải nghiệm.
+2. Hình thành định nghĩa.
+3. Củng cố.
+4. Vận dụng vào thực tiễn.
+
+Khi học định lý:
+
+*Quy trình học định lý*
+1. Trải nghiệm.
+2. Nêu định lý, giả thiết, kết luận và điều kiện áp dụng.
+3. Giải thích hoặc chứng minh.
+4. Vận dụng.
+
+Không gộp hoặc đảo thứ tự. Không bắt người học nhận câu trả lời dài bốn bước khi họ chỉ cần một thông tin đơn giản.
+
+### 5.4. Kết nối Gemini
+
+Kiểm tra backend hiện tại; nếu chưa có, dùng Netlify Functions hoặc backend tương thích.
+
+- Lưu GEMINI_API_KEY trong biến môi trường phía máy chủ.
+- Không đưa khóa API vào frontend.
+- Xác minh model ID bằng tài liệu Gemini API hiện hành.
+- Xử lý lỗi API key, quyền truy cập, hạn mức và mạng.
+- Hiển thị đúng nguồn phản hồi.
+- Không gọi phản hồi mẫu là phản hồi Gemini thật.
+
+Nếu đã có kho kiến thức 7 chương của giảng viên, chatbot phải truy xuất tài liệu liên quan trước khi trả lời.
+
+Phân biệt:
+- Phản hồi Gemini dựa trên tài liệu.
+- Phản hồi Gemini mở rộng ngoài tài liệu.
+- Phản hồi quy tắc cục bộ.
+- Chưa có phản hồi do lỗi kết nối.
+
+---
+
+## VI. CHUỖI NGÀY HỌC — STREAK THỰC TẾ
+
+Bổ sung chức năng *CHUỖI NGÀY HỌC* vào dashboard và hồ sơ cá nhân.
+
+Mục tiêu là khuyến khích học đều đặn, không biến việc mở website đơn thuần thành thành tích.
+
+### 6.1. Quy tắc ghi nhận ngày học
+
+Chỉ ghi nhận một ngày học khi người dùng có hoạt động học tập thực tế và đạt điểm dương theo một trong các hình thức:
+
+- Hoàn thành bài tập có câu trả lời và điểm dương.
+- Nộp trắc nghiệm và có điểm dương.
+- Hoàn thành một phiên vấn đáp trong Gia sư AI có phản hồi học tập thực sự.
+- Hoàn thành thi thử hoặc thử thách tuần với điểm dương.
+- Hoàn thành bài tập do AI tạo và có kết quả hợp lệ.
+- Thực hiện hoạt động phòng thí nghiệm nếu có bước hoàn thành nhiệm vụ học tập được định nghĩa rõ.
+
+Việc mở website, mở bài học, mở chatbot hoặc nhấn nút mà không làm bài không được tự động tính là một ngày học.
+
+Bài trắng, bài không có câu trả lời hoặc bài có điểm 0 không được cộng streak.
+
+Đối với bài tự luận do sinh viên tự đánh giá, chỉ ghi nhận khi có câu trả lời thực tế và điểm tự đánh giá dương; phải ghi rõ đó không phải điểm AI chấm.
+
+### 6.2. Cách tính streak
+
+- Một ngày có nhiều hoạt động cũng chỉ được tính là một ngày streak.
+- Chuỗi ngày liên tục tăng khi có hoạt động đủ điều kiện trong ngày kế tiếp.
+- Nếu bỏ lỡ một ngày theo múi giờ quy định, chuỗi liên tục bị ngắt.
+- Có thể bắt đầu chuỗi mới khi học lại.
+- Hiển thị số ngày liên tục hiện tại.
+- Hiển thị kỷ lục chuỗi ngày học.
+- Hiển thị ngày học gần nhất.
+- Lưu lịch sử ngày đủ điều kiện.
+
+Dùng múi giờ Asia/Ho_Chi_Minh để xác định ngày học cho người dùng Việt Nam.
+
+Không đếm hai lần một hoạt động do refresh hoặc gửi yêu cầu lặp.
+
+### 6.3. Lưu trữ và đồng bộ
+
+Streak phải được lưu bền vững trên backend/cơ sở dữ liệu đã cấu hình và gắn với tài khoản người dùng.
+
+Không dùng localStorage làm nguồn dữ liệu chính cho streak khi người dùng có thể đăng nhập trên nhiều thiết bị.
+
+Việc thay đổi ngày hệ thống trên máy người dùng không được phép tự tạo thành tích.
+
+### 6.4. Giao diện động viên
+
+Hiển thị:
+- Chuỗi học hiện tại.
+- Kỷ lục cá nhân.
+- Lịch ngày học.
+- Gợi ý mục tiêu ngày tiếp theo.
+- Thông báo động viên nhẹ nhàng.
+
+Không gây áp lực hoặc hiển thị cảnh báo quá mức khi người dùng bỏ lỡ một ngày.
+
+---
+
+## VII. DIỄN ĐÀN HỌC TẬP — PHẢI HOẠT ĐỘNG THẬT
+
+Tôi muốn diễn đàn dùng chung giữa người học, không chỉ là trang bài đăng mẫu.
+
+### 7.1. Các chức năng bắt buộc
+
+Sinh viên có thể:
+
+- Xem các bài đăng thật được lưu trên hệ thống.
+- Tạo bài đăng mới.
+- Đặt câu hỏi XSTK.
+- Chọn chủ đề hoặc chương.
+- Đính kèm ảnh hoặc tài liệu nếu hệ thống hỗ trợ.
+- Bình luận.
+- Trả lời bình luận nếu có cấu trúc thảo luận lồng nhau.
+- Thả cảm xúc hoặc lượt thích.
+- Tìm kiếm bài đăng.
+- Lọc theo chương, chủ đề, thời gian và độ phổ biến.
+- Xem bài đăng của chính mình.
+- Chỉnh sửa hoặc xóa bài đăng của mình theo quy định.
+- Báo cáo bài viết không phù hợp.
+- Nhận biết bài đã được giảng viên hoặc người kiểm duyệt trả lời nếu hệ thống có quyền tương ứng.
+
+### 7.2. Dữ liệu phải dùng chung
+
+Khi sinh viên A đăng bài, sinh viên B đăng nhập trên thiết bị khác phải có khả năng nhìn thấy bài đăng đó nếu có quyền truy cập diễn đàn.
+
+Sau khi đăng bài hoặc bình luận:
+- Lưu vào backend/database.
+- Trả kết quả thành công chỉ khi dữ liệu đã được lưu.
+- Cập nhật giao diện.
+- Khi tải lại trang hoặc đăng nhập trên thiết bị khác, dữ liệu vẫn tồn tại.
+- Không dựa vào localStorage để giả lập một diễn đàn dùng chung.
+
+Nếu dự án đã có backend/database, sử dụng lại. Nếu chưa có, chọn một dịch vụ phù hợp với Netlify, ưu tiên giải pháp đơn giản, có xác thực và cơ sở dữ liệu thực tế; có thể cân nhắc Supabase hoặc Firebase nếu tương thích.
+
+### 7.3. Cấu trúc dữ liệu
+
+Tối thiểu cần có các thực thể tương đương:
+
+*Posts*
+- ID bài đăng.
+- ID người tạo.
+- Nội dung.
+- Tiêu đề nếu có.
+- Chủ đề XSTK.
+- Tệp đính kèm nếu có.
+- Thời điểm tạo.
+- Thời điểm chỉnh sửa.
+- Trạng thái kiểm duyệt.
+
+*Comments*
+- ID bình luận.
+- ID bài đăng.
+- ID người viết.
+- Nội dung.
+- Bình luận cha nếu có.
+- Thời điểm tạo.
+- Thời điểm chỉnh sửa.
+
+*Reactions*
+- ID người dùng.
+- ID bài đăng hoặc bình luận.
+- Loại phản ứng.
+- Thời điểm tạo.
+
+*Reports*
+- Người báo cáo.
+- Nội dung bị báo cáo.
+- Lý do.
+- Trạng thái xử lý.
+- Thời điểm.
+
+Dùng ID người dùng thực từ hệ thống xác thực. Không tạo tên hoặc tài khoản giả để làm diễn đàn trông đông người.
+
+### 7.4. Phân quyền và bảo mật
+
+- Chỉ người dùng đã đăng nhập mới được đăng bài, bình luận hoặc thả cảm xúc.
+- Bài đăng có thể được xem công khai trong diễn đàn theo chính sách hiện tại của website.
+- Chỉ tác giả hoặc người có quyền phù hợp mới được chỉnh sửa/xóa bài.
+- Chỉ người có quyền kiểm duyệt mới được ẩn, gỡ hoặc duyệt nội dung của người khác.
+- Người dùng không được tự thay đổi trạng thái kiểm duyệt bằng API.
+- Kiểm soát quyền đọc/ghi ở backend hoặc cơ sở dữ liệu, không chỉ ẩn nút trên frontend.
+- Giới hạn loại và dung lượng tệp đính kèm.
+- Xử lý nội dung đầu vào an toàn, tránh script độc hại.
+- Có cơ chế báo cáo và kiểm duyệt nội dung không phù hợp.
+
+### 7.5. Giao diện diễn đàn
+
+Giữ phong cách Study Studio, gồm:
+- Bảng tin.
+- Nút tạo bài đăng.
+- Bộ lọc chủ đề.
+- Tìm kiếm.
+- Thẻ bài viết.
+- Khu vực bình luận.
+- Trạng thái đang tải, chưa có bài và lỗi kết nối.
+- Hồ sơ người đăng ở mức thông tin được phép công khai.
+
+Không dùng bài đăng mẫu như dữ liệu thật. Có thể cung cấp một bài hướng dẫn minh họa nhưng phải ghi rõ đây là nội dung mẫu.
+
+### 7.6. Kiểm thử diễn đàn
+
+Kiểm tra:
+1. Tài khoản A tạo bài.
+2. Tài khoản B nhìn thấy bài.
+3. Tài khoản B bình luận.
+4. Tải lại trang vẫn còn dữ liệu.
+5. Đăng xuất rồi đăng nhập trên trình duyệt khác, dữ liệu vẫn được đồng bộ.
+6. Người dùng không thể sửa hoặc xóa bài của người khác nếu không có quyền.
+7. Bài đăng không lưu được phải báo thất bại, không giả vờ thành công.
+
+---
+
+## VIII. LỘ TRÌNH HỌC CÁ NHÂN HÓA
+
+Bổ sung chức năng mới:
+
+*LỘ TRÌNH HỌC CỦA TÔI*
+
+Mục tiêu: dựa trên kết quả thực tế của người học, đề xuất “Học gì trước – học gì sau”.
+
+### 8.1. Dữ liệu đầu vào
+
+Sử dụng các dữ liệu nếu đã được ghi nhận:
+- Kết quả trắc nghiệm.
+- Kết quả bài tự luận.
+- Kết quả thi thử.
+- Lỗi thường gặp.
+- Câu trả lời trong Gia sư AI.
+- Các chương đã học.
+- Các chủ đề người học thường sai.
+- Mục tiêu học tập do người dùng lựa chọn.
+- Thời gian dự kiến có thể học.
+
+Không bịa điểm hoặc lịch sử học tập để tạo lộ trình.
+
+Khi người dùng mới chưa có dữ liệu, hãy yêu cầu họ làm bài đánh giá đầu vào ngắn hoặc cho phép tự chọn trình độ ban đầu.
+
+### 8.2. Cấu trúc lộ trình
+
+Lộ trình cần thể hiện:
+- Mục tiêu học tập.
+- Kiến thức tiên quyết.
+- Chủ đề cần học trước.
+- Chủ đề tiếp theo.
+- Nội dung cần ôn lại.
+- Bài tập tương ứng.
+- Mức độ ưu tiên.
+- Tiến độ hoàn thành.
+- Ngày cập nhật lộ trình.
+
+Mỗi nhiệm vụ học tập có:
+- Tên chương/chủ đề.
+- Lý do nên học.
+- Kết quả mong đợi.
+- Thời lượng ước tính.
+- Bài học hoặc bài luyện gợi ý.
+- Trạng thái chưa học, đang học hoặc hoàn thành.
+
+### 8.3. Logic cá nhân hóa
+
+Ưu tiên xây dựng logic có thể giải thích:
+
+- Nếu người học sai khái niệm nền tảng, gợi ý học lại khái niệm trước khi làm bài nâng cao.
+- Nếu người học chọn đúng công thức nhưng tính sai, gợi ý luyện tính toán và kiểm tra kết quả.
+- Nếu thường xuyên sai điều kiện áp dụng, đề xuất nội dung về điều kiện, giả thiết và cách lựa chọn công thức.
+- Nếu kết quả tốt ở chủ đề cơ bản, đề xuất bài vận dụng hoặc nâng cao phù hợp.
+- Nếu đã hoàn thành tốt một chủ đề, không bắt người học học lại không cần thiết.
+
+Gemini có thể hỗ trợ giải thích và tạo nội dung, nhưng các chỉ số điểm, số lần sai và trạng thái hoàn thành phải lấy từ dữ liệu thực.
+
+### 8.4. Điều chỉnh lộ trình
+
+Cho phép người dùng:
+- Bắt đầu học một nhiệm vụ.
+- Đánh dấu hoàn thành sau khi thực sự hoàn thành hoạt động tương ứng.
+- Yêu cầu đề xuất lại.
+- Điều chỉnh mục tiêu hoặc thời lượng học.
+- Xem lý do thứ tự học được đề xuất.
+
+Lộ trình phải lưu trên backend theo tài khoản người dùng nếu website đã có xác thực và cơ sở dữ liệu.
+
+---
+
+## IX. PHÒNG THÍ NGHIỆM XSTK
+
+Tạo một khu vực tương tác mới có tên:
+
+*PHÒNG THÍ NGHIỆM XSTK*
+
+Mục tiêu là giúp sinh viên nhìn thấy quy luật xác suất bằng thử nghiệm trực quan.
+
+Tất cả mô phỏng phải có thuật toán tính toán thực sự, không phải animation chỉ để trang trí.
+
+### 9.1. Thí nghiệm tung đồng xu
+
+Cho phép:
+- Tung một lần.
+- Tung nhiều lần.
+- Chọn 10, 50, 100, 500, 1.000 hoặc số lần phù hợp.
+- Thiết lập xác suất mặt ngửa nếu phù hợp với mô phỏng.
+- Bắt đầu, tạm dừng và đặt lại.
+
+Hiển thị:
+- Kết quả từng lần hoặc một phần kết quả.
+- Số lần mặt ngửa.
+- Số lần mặt sấp.
+- Tỷ lệ thực nghiệm của mỗi mặt.
+- Đồ thị tỷ lệ theo số lần thử.
+- Giá trị lý thuyết để so sánh.
+
+Giải thích rằng tỷ lệ thực nghiệm thường biến động khi số lần thử nhỏ và có xu hướng ổn định hơn khi số lần thử tăng, không khẳng định từng chuỗi kết quả phải tiến về đúng 50% một cách đơn điệu.
+
+### 9.2. Thí nghiệm gieo xúc xắc
+
+Cho phép gieo một hoặc nhiều xúc xắc.
+
+Hiển thị:
+- Kết quả từng lần.
+- Tần suất xuất hiện các mặt.
+- Tỷ lệ thực nghiệm.
+- Biểu đồ so sánh các mặt.
+- Xác suất lý thuyết trong mô hình được chọn.
+
+Có thể bổ sung các thí nghiệm:
+- Xác suất tổng điểm khi gieo hai xúc xắc.
+- Xác suất xuất hiện ít nhất một mặt xác định.
+- Xác suất của một biến cố do người học tự chọn.
+
+### 9.3. Phòng thí nghiệm phân phối xác suất
+
+Tạo các mô phỏng phù hợp với nội dung XSTK, tối thiểu:
+
+- Bernoulli.
+- Nhị thức.
+- Poisson.
+- Chuẩn.
+- Phân phối đều.
+- Lấy mẫu và phân phối của trung bình mẫu.
+
+Cho phép chỉnh tham số trong giới hạn hợp lệ, xem biểu đồ và so sánh giá trị lý thuyết với số liệu mô phỏng.
+
+Ví dụ:
+- Nhị thức: thay đổi số phép thử n và xác suất thành công p.
+- Poisson: thay đổi tham số .
+- Chuẩn: thay đổi trung bình  và độ lệch chuẩn .
+- Lấy mẫu: thay đổi cỡ mẫu và quan sát sự biến thiên của trung bình mẫu.
+
+Không cho phép tham số không hợp lệ như độ lệch chuẩn âm hoặc xác suất ngoài đoạn [0,1].
+
+### 9.4. Hiển thị và học qua thí nghiệm
+
+Mỗi thí nghiệm cần có:
+- Mục tiêu.
+- Công cụ điều chỉnh tham số.
+- Nút chạy, tạm dừng, đặt lại.
+- Kết quả số.
+- Biểu đồ tương tác.
+- Công thức liên quan.
+- Giải thích sự khác biệt giữa lý thuyết và thực nghiệm.
+- Câu hỏi kiểm tra ngắn sau thí nghiệm.
+
+Không tự đánh dấu hoàn thành bài học chỉ vì người dùng mở phòng thí nghiệm. Chỉ ghi nhận hoạt động học khi người dùng hoàn tất nhiệm vụ hoặc câu hỏi kiểm tra phù hợp.
+
+---
+
+## X. THỬ THÁCH HỌC TẬP HẰNG TUẦN
+
+Bổ sung tính năng:
+
+*THỬ THÁCH XSTK TUẦN NÀY*
+
+Mục tiêu là tổ chức một thử thách XSTK theo chủ đề mỗi tuần, gắn với tình huống thực tế và có bảng xếp hạng dùng dữ liệu thật.
+
+### 10.1. Cấu trúc thử thách
+
+Mỗi thử thách gồm:
+- Tên chủ đề.
+- Mô tả tình huống.
+- Nội dung liên quan.
+- Mức độ.
+- Thời gian làm.
+- Ngày bắt đầu và ngày kết thúc.
+- Câu hỏi hoặc nhiệm vụ.
+- Quy tắc tính điểm.
+- Phần giải thích sau khi kết thúc.
+
+Chủ đề có thể xoay quanh:
+- Xác suất và quyết định trong kinh doanh.
+- Phân phối xác suất.
+- Lấy mẫu.
+- Ước lượng.
+- Kiểm định.
+- Phân tích dữ liệu thực tế.
+
+Ưu tiên liên hệ kiến thức trong 7 chương tài liệu của giảng viên khi đã có đủ dữ liệu.
+
+### 10.2. Luồng người học
+
+1. Người học mở thử thách tuần hiện tại.
+2. Xem luật chơi và thời gian.
+3. Nhấn bắt đầu.
+4. Làm câu hỏi.
+5. Nộp bài.
+6. Hệ thống chấm dựa trên đáp án đã xác định.
+7. Lưu kết quả thực tế.
+8. Cập nhật bảng xếp hạng.
+9. Sau khi nộp, hiển thị đáp án và giải thích theo quy tắc của thử thách.
+
+Không hiện đáp án trước khi nộp.
+
+### 10.3. Bảng xếp hạng thật
+
+Bảng xếp hạng lấy dữ liệu từ backend/database, không dùng dữ liệu hard-code.
+
+Hiển thị:
+- Thứ hạng.
+- Tên hiển thị.
+- Điểm.
+- Thời gian hoàn thành nếu dùng để phân hạng.
+- Trạng thái hoàn thành.
+
+Quy tắc xếp hạng phải rõ và nhất quán, ví dụ:
+1. Tổng điểm cao hơn xếp trên.
+2. Nếu bằng điểm, thời gian hoàn thành hợp lệ ngắn hơn xếp trên.
+3. Không cộng điểm chỉ vì mở trang.
+
+Có thể cho người dùng lựa chọn tham gia bảng xếp hạng công khai và chọn tên hiển thị phù hợp. Không công khai email, số điện thoại hoặc thông tin cá nhân nhạy cảm.
+
+### 10.4. Công bằng và thời gian
+
+- Thử thách tuần được quản lý bằng dữ liệu máy chủ.
+- Xác định tuần theo múi giờ Asia/Ho_Chi_Minh.
+- Có một ID thử thách và thời gian bắt đầu/kết thúc rõ ràng.
+- Không cho phép sửa điểm trực tiếp từ frontend.
+- Hạn chế gửi kết quả trùng lặp.
+- Khi đã hết hạn, không nhận lượt làm mới cho thử thách đó.
+- Ghi nhận thời gian bằng phía máy chủ khi phù hợp.
+
+### 10.5. Quản lý thử thách
+
+Nếu có quyền quản trị hoặc dữ liệu thử thách được tạo từ hệ thống, cần hỗ trợ:
+- Tạo thử thách.
+- Công bố.
+- Chỉnh sửa trước khi bắt đầu.
+- Kết thúc đúng hạn.
+- Xem kết quả.
+- Xem lịch sử các tuần.
+
+Nếu chưa có giao diện quản trị, xây dựng cấu trúc dữ liệu và cơ chế phục vụ thử thách tuần, đồng thời ghi rõ cách thêm thử thách mới.
+
+Không tạo bảng xếp hạng giả chỉ để minh họa chức năng.
+
+---
+
+## XI. AI TẠO ĐỀ THI CÁ NHÂN HÓA
+
+Bổ sung chức năng:
+
+*TẠO ĐỀ THI THEO NĂNG LỰC CỦA TÔI*
+
+Đây là chức năng khác với bài thi thử XSTK 45 phút hiện có. Không xóa hoặc thay thế bài thi thử cố định.
+
+### 11.1. Tùy chọn tạo đề
+
+Cho phép người dùng chọn:
+
+- Chương hoặc nhiều chương.
+- Chủ đề cụ thể.
+- Mức độ: cơ bản, trung bình, nâng cao hoặc hỗn hợp.
+- Thời gian làm bài.
+- Số câu.
+- Tỷ lệ câu nhận biết, thông hiểu, vận dụng và vận dụng cao.
+- Hình thức: trắc nghiệm, tự luận hoặc kết hợp.
+- Có hay không ưu tiên các chủ đề người dùng thường sai.
+
+Nếu người học chưa có dữ liệu năng lực, hãy cho phép chọn mức ban đầu hoặc làm bài đánh giá ngắn trước.
+
+### 11.2. Cá nhân hóa theo kết quả
+
+Khi đủ dữ liệu, hệ thống có thể dựa trên:
+- Chủ đề thường sai.
+- Chủ đề có điểm thấp.
+- Chủ đề đã thành thạo.
+- Lỗi thường gặp trong bài làm.
+- Kết quả trắc nghiệm.
+- Kết quả thi thử.
+- Mục tiêu học tập.
+
+Không tự kết luận năng lực người học khi chưa có dữ liệu.
+
+Đề thi phải phản ánh các lựa chọn và dữ liệu thật. Nếu người dùng chọn một chương, không tự ý tạo đề ngoài chương đó trừ khi người dùng bật chế độ tổng hợp.
+
+### 11.3. Sinh và kiểm tra đề
+
+Gemini có thể tạo câu hỏi, nhưng hệ thống phải kiểm tra:
+- Đề bài rõ ràng.
+- Dữ kiện đầy đủ.
+- Công thức áp dụng phù hợp.
+- Không có mẫu số bằng 0.
+- Không có xác suất ngoài [0,1].
+- Tham số phân phối hợp lệ.
+- Đáp án đúng khớp lời giải.
+- Các phương án A, B, C, D không trùng nhau.
+- Đề không tự mâu thuẫn.
+
+Với các câu hỏi dùng để chấm điểm, phải có đáp án tham chiếu và lời giải nội bộ để kiểm tra. Nếu chưa xác minh được đáp án, không đưa câu hỏi đó vào bộ đề chấm điểm chính thức.
+
+### 11.4. Giao diện làm bài
+
+Hiển thị:
+- Thông tin đề.
+- Số câu.
+- Thời lượng.
+- Trạng thái từng câu.
+- Thời gian còn lại.
+- Nút nộp bài.
+- Xác nhận trước khi nộp.
+- Tự động nộp khi hết giờ nếu đề có giới hạn thời gian.
+
+Đồng hồ chỉ bắt đầu khi người dùng bấm *BẮT ĐẦU LÀM BÀI*.
+
+Nếu cho phép tiếp tục sau khi tải lại trang, thời gian còn lại phải được tính từ mốc thời gian được lưu, không reset chỉ bằng cách refresh. Với đề thi có tính chính thức, quản lý thời gian và trạng thái nộp ở backend.
+
+### 11.5. Phản hồi sau thi
+
+Sau khi nộp:
+- Tổng điểm.
+- Số câu đúng và sai.
+- Thời gian đã sử dụng.
+- Giải thích đáp án từng câu.
+- Phân tích các dạng lỗi.
+- Những chủ đề nên ôn lại.
+- Liên kết tới phần lý thuyết liên quan.
+- Đề xuất bài luyện tiếp theo.
+
+Đối với tự luận, nếu chưa có cơ chế chấm được kiểm chứng, phải hiển thị tiêu chí hoặc rubric để đối chiếu và ghi rõ phần tự đánh giá; không giả vờ điểm do AI chấm là điểm chính thức.
+
+### 11.6. Liên kết với lộ trình học
+
+Sau khi hoàn thành đề:
+- Cập nhật kết quả vào hồ sơ học tập.
+- Đề xuất điều chỉnh lộ trình nếu dữ liệu đủ.
+- Tính streak khi đáp ứng quy tắc tại Phần VI.
+- Không ghi nhận kết quả hai lần do nộp trùng hoặc refresh.
+
+---
+
+## XII. KHO KIẾN THỨC 7 CHƯƠNG VÀ GIA SƯ AI
+
+Giữ nguyên kho kiến thức XSTK và các tài liệu giảng viên đã có.
+
+Khi có đủ 7 chương, ưu tiên dùng nguồn này để:
+- Tra cứu khái niệm.
+- Trả lời câu hỏi.
+- Giải thích công thức.
+- Tạo bài tập.
+- Chấm và nhận xét bài làm.
+- Đề xuất lộ trình học.
+- Tạo đề thi cá nhân hóa.
+- Tạo câu hỏi cho thử thách tuần.
+- Tạo nội dung phòng thí nghiệm khi phù hợp.
+
+Không bịa nội dung cho các chương chưa được cung cấp.
+
+### Quy tắc nguồn kiến thức
+
+1. Tài liệu giảng viên là nguồn ưu tiên cao nhất.
+2. Phải phân biệt nội dung gốc, nội dung giải thích của AI và nội dung mở rộng.
+3. Nếu có thể, dẫn tên chương, tài liệu, mục và trang chính xác.
+4. Không tự tạo số trang hoặc tiêu đề nguồn.
+5. Nếu hai tài liệu mâu thuẫn, nêu rõ sự khác nhau.
+6. Nếu không tìm thấy thông tin phù hợp, nói rõ thay vì đoán.
+7. Khi cập nhật tài liệu, làm mới phần chỉ mục liên quan.
+
+Nếu kho kiến thức đã có chức năng tải và lập chỉ mục, tiếp tục sử dụng. Không tạo một kho mới làm thất lạc dữ liệu cũ.
+
+---
+
+## XIII. BÁO CÁO LỖI AI VÀ THỐNG KÊ LỖI SINH VIÊN
+
+Giữ các chức năng này.
+
+### 13.1. Báo cáo lỗi AI
+
+Sinh viên có thể báo cáo câu trả lời nghi ngờ sai, nhưng không có quyền tự xác minh.
+
+Khi gửi:
+- Backend phải tạo mã báo cáo.
+- Lưu nội dung và thời gian.
+- Chỉ báo “Đã tiếp nhận — Đang chờ máy chủ xác minh” khi backend xác nhận đã lưu thành công.
+- Nếu chưa lưu được, hiển thị lỗi gửi.
+- Sinh viên chỉ có quyền theo dõi báo cáo của mình.
+
+Chỉ người hoặc hệ thống được phân quyền mới được xác minh và thay đổi kết quả kiểm định.
+
+### 13.2. Phân loại lỗi
+
+Giữ hai nhóm riêng:
+
+*Lỗi của sinh viên*
+- Theo chủ đề bài học.
+- Theo 4 bước giải toán.
+- Theo loại sai công thức, tính toán hoặc kết luận.
+
+*Lỗi AI*
+- Sai kiến thức hoặc công thức.
+- Sai tính toán.
+- Vi phạm quy trình sư phạm.
+
+Không tính báo cáo chưa xác minh thành lỗi AI đã xác nhận.
+
+Không xóa lịch sử lỗi sau khi cập nhật giao diện.
+
+---
+
+## XIV. KIẾN TRÚC BACKEND VÀ TRIỂN KHAI NETLIFY
+
+Đây là yêu cầu kỹ thuật bắt buộc đối với các chức năng dùng dữ liệu chung.
+
+### 14.1. Kiểm tra kiến trúc hiện tại
+
+Trước khi thêm mới, kiểm tra:
+- Framework.
+- Build command.
+- Publish directory.
+- Cấu hình Netlify.
+- Netlify Functions nếu đang có.
+- Cơ sở dữ liệu hiện tại.
+- Nhà cung cấp xác thực.
+- Các biến môi trường.
+- Cấu trúc API.
+
+Ưu tiên tái sử dụng tài nguyên hiện có. Không thay đổi cấu hình đang hoạt động nếu không cần thiết.
+
+### 14.2. Dữ liệu cần được lưu bền vững
+
+Các chức năng sau phải sử dụng backend/database thực tế nếu yêu cầu đồng bộ nhiều tài khoản hoặc nhiều thiết bị:
+
+- Diễn đàn.
+- Bài viết và bình luận.
+- Tài khoản.
+- Chuỗi ngày học.
+- Lịch sử hoạt động học tập.
+- Kết quả bài thi.
+- Bảng xếp hạng.
+- Thử thách tuần.
+- Lộ trình học cá nhân.
+- Báo cáo lỗi AI.
+- Hồ sơ người học.
+- Trạng thái xác minh.
+
+Nếu chưa có backend/database, hãy chọn một giải pháp thống nhất phù hợp Netlify, có thể cân nhắc Supabase, Firebase hoặc dịch vụ tương đương tùy kiến trúc hiện tại.
+
+Không tích hợp nhiều cơ sở dữ liệu không cần thiết.
+
+### 14.3. Netlify Functions
+
+Nếu cần xử lý phía máy chủ, sử dụng Netlify Functions hoặc backend tương thích để:
+- Gọi Gemini.
+- Kiểm tra quyền.
+- Tiếp nhận báo cáo lỗi.
+- Lưu kết quả bài thi.
+- Cập nhật streak.
+- Xử lý thử thách tuần và bảng xếp hạng.
+- Tạo hoặc điều chỉnh lộ trình học.
+- Xác thực thao tác nhạy cảm.
+
+Không để frontend tự quyết định điểm chính thức, quyền kiểm duyệt hoặc trạng thái xác minh.
+
+### 14.4. Quản lý bí mật
+
+- Đưa Gemini API key vào biến môi trường phía máy chủ.
+- Không lưu khóa bí mật trong HTML, JavaScript công khai hoặc Git repository.
+- Không log API key.
+- Không trả khóa API cho trình duyệt.
+- Kiểm tra quyền truy cập với mọi API ghi hoặc đọc dữ liệu riêng tư.
+- Có giới hạn tốc độ và xử lý gửi yêu cầu trùng khi phù hợp.
+
+### 14.5. Đăng nhập
+
+Giữ hệ thống đăng nhập/đăng ký hiện có.
+
+Nếu dự án đã hỗ trợ Google, email hoặc số điện thoại, không được làm hỏng các phương thức này.
+
+Nếu chưa hoàn thiện, báo rõ nhà cung cấp xác thực nào đã cấu hình và chức năng nào còn thiếu. Không tạo các nút đăng nhập giả.
+
+---
+
+## XV. KIỂM THỬ VÀ NGHIỆM THU
+
+Sau khi cập nhật, kiểm tra toàn bộ các phần có liên quan.
+
+### 15.1. Giao diện và typography
+
+- Font nhất quán.
+- Tiếng Việt hiển thị đúng.
+- Công thức không bị cắt.
+- Thẻ, bảng và biểu mẫu không chồng lấp.
+- Giao diện hoạt động trên desktop và mobile.
+- Sidebar không mất chữ.
+- Hai chức năng tải tệp nằm trong cùng một khung lớn.
+- Phần trợ lý AI dài không làm vỡ bố cục.
+- Không có lỗi do CSS mới tác động lên trang khác.
+
+### 15.2. Chấm bài và tạo bài tập
+
+- Tải tài liệu để tạo bài.
+- Tải bài làm để chấm.
+- Hai loại tệp không bị nhầm.
+- Chế độ tạo đề đọc nội dung thực tế.
+- Tùy chọn gợi ý ôn tập bật/tắt chính xác.
+- Nếu thiếu barem, không tạo điểm chính thức giả.
+- Chỉ hiển thị trạng thái hoàn thành khi xử lý thật thành công.
+
+### 15.3. Gia sư AI và giọng nói
+
+- Nhận diện câu hỏi từ micro.
+- Cho phép sửa văn bản nhận diện.
+- Gửi câu hỏi đến Gemini.
+- Đọc phản hồi thành tiếng.
+- Tắt/bật đọc phản hồi.
+- Hiển thị đúng nguồn phản hồi.
+- Xử lý lỗi quyền micro, lỗi mạng và lỗi API.
+- Không còn menu vấn đáp bằng giọng nói độc lập.
+
+### 15.4. Streak
+
+- Chỉ ghi nhận hoạt động đạt điểm dương.
+- Không ghi nhận khi chỉ mở website.
+- Nhiều hoạt động trong ngày chỉ được tính một ngày.
+- Lịch sử được lưu trên backend.
+- Đăng nhập thiết bị khác vẫn thấy dữ liệu.
+- Không thể tạo streak bằng cách đổi ngày trên thiết bị hoặc gửi dữ liệu giả.
+
+### 15.5. Diễn đàn
+
+- Người A tạo bài.
+- Người B nhìn thấy bài.
+- Người B bình luận.
+- Tải lại trang vẫn còn dữ liệu.
+- Đăng nhập trên thiết bị khác vẫn đồng bộ.
+- Quyền sửa/xóa bài đúng.
+- Lượt thích không bị cộng nhiều lần do yêu cầu trùng.
+- Trạng thái gửi thất bại được hiển thị đúng.
+
+### 15.6. Lộ trình cá nhân hóa
+
+- Người mới có thể làm bài đánh giá đầu vào.
+- Người đã có dữ liệu nhận được lộ trình dựa trên kết quả.
+- Lộ trình giải thích được lý do đề xuất.
+- Nội dung hoàn thành cập nhật đúng.
+- Không tạo thành tích hoặc dữ liệu lỗi giả.
+
+### 15.7. Phòng thí nghiệm XSTK
+
+- Tung đồng xu và xúc xắc hoạt động.
+- Số lần thử khớp lựa chọn.
+- Tỷ lệ thực nghiệm được tính từ kết quả thật.
+- Biểu đồ thay đổi khi chạy lại.
+- Phân phối xác suất sử dụng tham số hợp lệ.
+- Có thể đặt lại thí nghiệm.
+- Phần giải thích liên hệ đúng công thức.
+- Không hiển thị số liệu cố định như một mô phỏng thật.
+
+### 15.8. Thử thách tuần
+
+- Có thử thách hiện tại với thời gian rõ ràng.
+- Nộp bài và chấm theo đáp án tham chiếu.
+- Kết quả được lưu thật.
+- Bảng xếp hạng dùng dữ liệu thật.
+- Thứ hạng được tính nhất quán.
+- Không hiển thị đáp án trước khi nộp.
+- Không nhận kết quả sau khi hết hạn.
+- Không cộng trùng kết quả.
+
+### 15.9. Tạo đề thi cá nhân hóa
+
+- Chọn chương và chủ đề.
+- Chọn độ khó.
+- Chọn thời lượng và số câu.
+- Đề được tạo dựa trên thiết lập và dữ liệu năng lực nếu có.
+- Câu hỏi và đáp án được kiểm tra.
+- Đồng hồ chỉ bắt đầu khi nhấn bắt đầu.
+- Khi hết giờ, tự động khóa và nộp.
+- Kết quả và nhận xét được lưu đúng.
+- Không làm mất chức năng thi thử cố định 45 phút hiện tại.
+
+### 15.10. Kiểm thử Netlify
+
+- Build thành công.
+- Deploy không làm mất các route cũ.
+- Netlify Functions hoạt động nếu đã cấu hình.
+- API key không bị lộ.
+- Dữ liệu chia sẻ còn tồn tại sau deploy.
+- Quyền truy cập được kiểm tra ở backend.
+- Thiếu dịch vụ hoặc API phải được thông báo rõ.
+- Không tuyên bố những phần chưa kiểm tra là đã hoàn tất.
+
+---
+
+## XVI. QUY TRÌNH THỰC HIỆN
+
+Thực hiện theo thứ tự sau:
+
+*Giai đoạn 1 — Kiểm tra dự án hiện tại*
+
+Khảo sát mã nguồn, component, route, database, dịch vụ xác thực, cách triển khai Netlify và các chức năng đang hoạt động.
+
+*Giai đoạn 2 — Gộp khung tải tài liệu/chấm bài và chuẩn hóa font*
+
+Hoàn thiện giao diện trước, giữ nguyên logic và dữ liệu cũ.
+
+*Giai đoạn 3 — Tích hợp giọng nói vào Gia sư AI*
+
+Giữ một chatbot duy nhất, bổ sung micro và đọc phản hồi.
+
+*Giai đoạn 4 — Xây dựng streak và lộ trình học*
+
+Đảm bảo dữ liệu hoạt động học tập được ghi nhận thực tế, lưu bền vững và gắn với đúng tài khoản.
+
+*Giai đoạn 5 — Làm diễn đàn hoạt động thật*
+
+Kết nối backend/database, đăng bài, bình luận, tương tác và phân quyền.
+
+*Giai đoạn 6 — Xây dựng phòng thí nghiệm và thử thách tuần*
+
+Tạo thuật toán mô phỏng, biểu đồ, nhiệm vụ học tập và bảng xếp hạng thực.
+
+*Giai đoạn 7 — Tạo đề thi cá nhân hóa*
+
+Liên kết kho kiến thức, Gemini và dữ liệu học tập.
+
+*Giai đoạn 8 — Kiểm thử tổng thể*
+
+Kiểm tra tính chính xác, chức năng, quyền truy cập, giao diện và lỗi hồi quy.
+
+*Giai đoạn 9 — Bàn giao*
+
+Báo cáo những tệp đã thêm/sửa, các chức năng đã chạy thật, các cấu hình còn thiếu và cách kiểm tra sau deploy.
+
+Không cố thay đổi mọi phần cùng lúc nếu có nguy cơ làm hỏng dự án. Hãy triển khai theo từng module, kiểm tra sau mỗi giai đoạn và lưu điểm khôi phục trước thay đổi lớn nếu môi trường hỗ trợ.
+
+---
+
+## XVII. LỆNH CUỐI CÙNG
+
+Bắt đầu bằng việc kiểm tra dự án Study Studio XSTK hiện tại đang được triển khai trên Netlify.
+
+Sau đó, thực hiện tất cả yêu cầu trong prompt này trực tiếp trên mã nguồn hiện có.
+
+Bắt buộc:
+- Gộp chức năng tải tài liệu tạo bài tập và tải bài làm chấm sửa sai vào một khung duy nhất.
+- Chuẩn hóa font chữ toàn website.
+- Chuyển chức năng nhận diện giọng nói và đọc phản hồi vào Gia sư AI, không giữ trang giọng nói riêng.
+- Bổ sung chuỗi ngày học dựa trên hoạt động thực tế.
+- Làm diễn đàn dùng chung thật với dữ liệu được lưu trên máy chủ.
+- Bổ sung lộ trình học cá nhân hóa.
+- Bổ sung phòng thí nghiệm XSTK.
+- Bổ sung thử thách tuần và bảng xếp hạng thật.
+- Bổ sung AI tạo đề thi cá nhân hóa.
+- Giữ các chức năng học tập khác đang có.
+- Không khôi phục Monte Carlo, Phân tích rủi ro hoặc Trợ lý chọn phương pháp giải.
+- Bảo vệ API key và dữ liệu người dùng.
+- Không dùng dữ liệu giả để tuyên bố chức năng đã hoạt động.
+- Không chỉ trả lời bằng kế hoạch nếu có thể chỉnh sửa mã nguồn trực tiếp.
+
+Nếu thiếu API key, database, backend hoặc cấu hình dịch vụ, hãy hoàn thiện phần mã nguồn có thể triển khai trước, sau đó ghi rõ từng bước cấu hình còn cần thực hiện. Không tự động yêu cầu nâng cấp trả phí nếu chưa xác định được lý do kỹ thuật.
+
+*ƯU TIÊN ĐỘ CHÍNH XÁC CỦA KIẾN THỨC, TÍNH TOÀN VẸN CỦA DỮ LIỆU, KHẢ NĂNG HOẠT ĐỘNG THỰC TẾ, TÍNH BẢO MẬT VÀ VIỆC BẢO TOÀN WEBSITE HIỆN CÓ.*
+Hương
+# PROMPT TÍCH HỢP GEMINI AI THẬT VÀO GIA SƯ AI — STUDY STUDIO XSTK
+
+Bạn là chuyên gia phát triển ứng dụng AI full-stack, tích hợp Gemini API và xây dựng trợ lý học tập Xác suất Thống kê.
+
+Hãy kiểm tra và chỉnh sửa trực tiếp dự án Study Studio XSTK hiện tại để kết nối chức năng *GIA SƯ AI với Gemini API thật*.
+
+Đây là yêu cầu hoàn thiện dự án đã có, không phải tạo ứng dụng mới.
+
+## I. BẢO TOÀN WEBSITE HIỆN TẠI
+
+Trước khi thực hiện, hãy kiểm tra cấu trúc dự án, giao diện Gia sư AI, các component hội thoại, hàm gửi tin nhắn, hệ thống giọng nói, kho kiến thức và backend hiện có.
+
+Bắt buộc:
+- Giữ nguyên thiết kế Study Studio, sidebar, màu sắc, font chữ và hệ thống điều hướng.
+- Giữ lại tất cả chức năng hiện có không thuộc phạm vi chỉnh sửa.
+- Tích hợp giọng nói vào chính trang Gia sư AI, không tạo thêm chatbot thứ hai.
+- Không tạo website mới, không viết lại toàn bộ dự án.
+- Chỉ chỉnh sửa các tệp cần thiết để kết nối Gemini và kiểm tra chức năng.
+- Không tự ý xóa dữ liệu, lịch sử học tập hoặc kho kiến thức.
+
+## II. KẾT NỐI GEMINI API THẬT
+
+### 1. Kiểm tra tích hợp hiện tại
+
+Tìm toàn bộ mã nguồn liên quan đến:
+- Trang Gia sư AI.
+- Hàm gửi và nhận tin nhắn.
+- Cơ chế phản hồi cục bộ.
+- Backend hoặc API hiện tại.
+- Cấu hình Gemini.
+- Trạng thái kết nối và xử lý lỗi.
+
+Xác định rõ vì sao chatbot hiện tại đang sử dụng phản hồi cục bộ hoặc chưa nhận được câu trả lời từ Gemini.
+
+Không chỉ thay nội dung hiển thị. Hãy kết nối thực tế luồng gửi câu hỏi đến Gemini, nhận phản hồi rồi hiển thị trong hội thoại.
+
+### 2. Cấu hình Gemini an toàn
+
+Nếu dự án đang chạy trong Google AI Studio Build, hãy sử dụng cơ chế tích hợp Gemini và secret phía máy chủ mà môi trường hỗ trợ.
+
+- Sử dụng GEMINI_API_KEY ở phía máy chủ.
+- Nếu cần cấu hình model, sử dụng biến môi trường GEMINI_MODEL.
+- Kiểm tra model ID theo danh sách model được hỗ trợ và quyền truy cập thực tế của project tại thời điểm chạy.
+- Chỉ sử dụng model ID đã được xác nhận hợp lệ.
+- Tận dụng thư viện Gemini chính thức phù hợp với môi trường hiện có, chẳng hạn @google/genai cho JavaScript/TypeScript khi tương thích.
+- Không đưa API key vào mã nguồn frontend, mã JavaScript công khai, localStorage hoặc repository GitHub.
+- Không yêu cầu người dùng dán API key trực tiếp vào giao diện chatbot.
+- Không tự ý thay đổi framework hoặc cấu trúc dự án hiện có.
+
+Nếu dự án tiếp tục được triển khai trên Netlify, hãy sử dụng backend hoặc Netlify Functions và lấy API key từ biến môi trường phía máy chủ của Netlify. Không giả định secret trong Google AI Studio tự động được chuyển sang Netlify.
+
+### 3. Luồng hội thoại phải hoạt động thật
+
+Triển khai đầy đủ luồng:
+
+1. Người dùng nhập câu hỏi hoặc nói vào micro.
+2. Website tạo nội dung câu hỏi.
+3. Frontend gửi câu hỏi đến API phía máy chủ.
+4. Backend gọi Gemini bằng cấu hình hợp lệ.
+5. Gemini tạo câu trả lời.
+6. Backend trả kết quả cho frontend.
+7. Website hiển thị câu trả lời trong đúng cuộc hội thoại.
+8. Nếu bật đọc phản hồi, trình duyệt đọc câu trả lời thành tiếng.
+
+Phải có trạng thái:
+- Đang gửi câu hỏi.
+- Đang xử lý.
+- Đang tạo câu trả lời.
+- Hoàn thành.
+- Kết nối thất bại.
+
+Ngăn việc gửi trùng một yêu cầu ngoài ý muốn. Xử lý lỗi mạng, lỗi API và thời gian chờ hợp lý.
+
+### 4. Duy trì ngữ cảnh cuộc hội thoại
+
+Chatbot phải hiểu được các câu hỏi tiếp nối như:
+- “Giải thích dễ hiểu hơn.”
+- “Tại sao lại dùng công thức đó?”
+- “Bạn giải thích kỹ bước thứ hai.”
+- “Cho tôi ví dụ khác.”
+- “Nếu dữ kiện thay đổi thì sao?”
+- “Đặt một câu hỏi để kiểm tra tôi.”
+
+Duy trì lịch sử hội thoại trong phiên theo giới hạn hợp lý. Gửi đủ ngữ cảnh cần thiết để Gemini hiểu câu hỏi mới đang liên quan đến phản hồi trước, nhưng không gửi lịch sử vô hạn.
+
+Tách biệt lịch sử giữa các cuộc hội thoại và các tài khoản người dùng theo hệ thống hiện tại.
+
+## III. ĐỊNH HƯỚNG GEMINI THÀNH GIA SƯ XSTK
+
+Thiết lập chỉ thị hệ thống cho Gemini với vai trò:
+
+“Bạn là Gia sư AI chuyên môn Xác suất và Thống kê dành cho sinh viên đại học. Bạn có nhiệm vụ giải thích lý thuyết, hướng dẫn giải bài tập, phân biệt khái niệm dễ nhầm và giúp người học hiểu bản chất công thức. Bạn phải trả lời linh hoạt theo mục đích câu hỏi, không máy móc, không bịa công thức và không khẳng định những điều chưa được kiểm chứng.”
+
+### 1. Phân loại ý định câu hỏi
+
+Gemini tự nhận diện yêu cầu thuộc loại:
+- Hỏi định nghĩa.
+- Giải thích khái niệm.
+- Hỏi công thức.
+- So sánh hai khái niệm.
+- Giải bài tập định lượng.
+- Học định lý.
+- Tóm tắt chương.
+- Tạo câu hỏi luyện tập.
+- Hỏi tiếp nội dung trước đó.
+- Ôn tập hoặc kiểm tra mức độ hiểu.
+
+Chọn cách trả lời tương ứng.
+
+Câu hỏi đơn giản phải được trả lời ngắn gọn. Câu hỏi khó cần được giải thích kỹ. Không bắt buộc mọi câu trả lời đều phải trình bày bốn bước nếu không phù hợp.
+
+### 2. Ba quy trình sư phạm bắt buộc
+
+Khi người dùng yêu cầu giải bài tập, sử dụng đúng:
+
+*Quy trình A — Giải toán*
+1. Tìm hiểu nội dung bài toán.
+2. Xây dựng chương trình giải.
+3. Trình bày lời giải.
+4. Kiểm tra và đánh giá.
+
+*Quy trình B — Học khái niệm*
+1. Trải nghiệm bằng tình huống thực tế.
+2. Hình thành định nghĩa.
+3. Củng cố và phân biệt khái niệm dễ nhầm.
+4. Vận dụng vào thực tiễn.
+
+*Quy trình C — Học định lý*
+1. Trải nghiệm vấn đề cần công cụ hoặc định lý.
+2. Phát biểu định lý, giả thiết, kết luận và điều kiện áp dụng.
+3. Giải thích hoặc minh họa logic của định lý.
+4. Vận dụng vào bài tập và nhận diện lỗi thường gặp.
+
+Không được tự ý gộp bước, bỏ bước hoặc đảo thứ tự của quy trình được chọn.
+
+Với câu hỏi chỉ yêu cầu một thông tin ngắn, trả lời trực tiếp và dễ hiểu thay vì áp dụng máy móc cả quy trình.
+
+## IV. ƯU TIÊN KHO KIẾN THỨC 7 CHƯƠNG
+
+Nếu dự án đã có kho kiến thức XSTK, hãy tận dụng và kết nối kho hiện có với Gemini.
+
+Không tạo kho kiến thức mới thay thế kho cũ, không xóa tài liệu hoặc nội dung đã nhập.
+
+Nếu tài liệu giảng viên đã được tải và xử lý:
+1. Tìm những đoạn tài liệu liên quan đến câu hỏi.
+2. Gửi câu hỏi cùng các đoạn liên quan đến Gemini.
+3. Yêu cầu Gemini ưu tiên nguồn được cung cấp.
+4. Trả lời bằng ngôn ngữ dễ hiểu.
+5. Hiển thị nguồn tài liệu thực sự đã được sử dụng, gồm tên chương, tên tệp, mục hoặc trang nếu có dữ liệu chính xác.
+
+Nếu tài liệu chưa được tải, hãy thông báo rằng chatbot chưa có đủ nguồn để trả lời theo giáo trình. Không bịa tên chương hoặc nguồn trích dẫn.
+
+Phân biệt rõ:
+- Câu trả lời dựa trên tài liệu giảng viên.
+- Phần giải thích mở rộng bằng kiến thức bổ sung.
+- Phản hồi cục bộ trong trường hợp Gemini không hoạt động.
+
+Mặc định, ưu tiên chế độ “Theo tài liệu giảng viên”.
+
+## V. KẾT NỐI GIỌNG NÓI VỚI GEMINI
+
+Giữ chức năng micro và đọc câu trả lời trong cùng giao diện Gia sư AI.
+
+Luồng hoạt động:
+
+1. Người dùng nhấn micro.
+2. Trình duyệt nhận diện lời nói tiếng Việt.
+3. Hiển thị câu nói dưới dạng văn bản.
+4. Cho phép người dùng xác nhận hoặc sửa câu hỏi.
+5. Gửi câu hỏi đó đến Gemini.
+6. Hiển thị phản hồi của Gemini.
+7. Đọc phản hồi thành tiếng nếu người dùng đã bật chức năng.
+
+Có nút:
+- Bắt đầu nghe.
+- Dừng nghe.
+- Gửi câu hỏi.
+- Đọc phản hồi.
+- Dừng đọc.
+
+Nếu trình duyệt không hỗ trợ nhận diện giọng nói, cho phép nhập văn bản.
+
+Không gọi câu trả lời cục bộ là câu trả lời Gemini. Không phát âm thanh trước khi có nội dung phản hồi thực tế.
+
+## VI. XỬ LÝ LỖI VÀ KIỂM TRA QUYỀN TRUY CẬP
+
+Đây là phần bắt buộc vì project của tôi trước đây đã trả về lỗi:
+
+Your project has been denied access. Please contact support.
+
+Hãy kiểm tra và xử lý lỗi một cách minh bạch.
+
+### 1. Khi Gemini API thành công
+- Hiển thị câu trả lời do Gemini tạo.
+- Ghi nhận nguồn phản hồi là Gemini.
+- Cho phép hội thoại tiếp tục.
+
+### 2. Khi thiếu API key hoặc secret
+- Hiển thị thông báo cấu hình chưa hoàn tất.
+- Không tự tạo câu trả lời mẫu và trình bày như Gemini đã phản hồi.
+
+### 3. Khi API trả lỗi 401 hoặc 403
+- Ghi nhận lỗi xác thực hoặc quyền truy cập.
+- Hiển thị thông báo thân thiện.
+- Lưu mã lỗi cần thiết trong log phía máy chủ nhưng không ghi API key.
+- Không liên tục thử lại vô hạn.
+- Không tự ý tạo API key mới hoặc thay đổi project.
+- Không cố vượt qua hạn chế của Google.
+
+### 4. Khi project bị Restricted hoặc Access Denied
+- Báo rõ rằng project Gemini hiện chưa có quyền truy cập.
+- Chỉ ra rằng vấn đề cần được xử lý tại Google AI Studio hoặc Google Cloud.
+- Vẫn cho phép sử dụng các chức năng không phụ thuộc Gemini nếu chúng đã được triển khai.
+- Không tuyên bố kết nối thành công khi chưa nhận được phản hồi từ API.
+
+### 5. Khi Gemini chưa hoạt động
+Nếu có phương án dự phòng cục bộ, hãy hiển thị nhãn rõ:
+“Phản hồi cục bộ — Gemini chưa kết nối thành công”.
+
+Không âm thầm dùng phản hồi mẫu thay cho phản hồi Gemini.
+
+## VII. TỰ KIỂM TRA TÍNH NĂNG SAU KHI TRIỂN KHAI
+
+Thực hiện các kiểm thử sau:
+
+1. Gửi một câu hỏi XSTK bằng văn bản.
+2. Gửi một câu hỏi tiếp nối.
+3. Yêu cầu giải thích lại bằng cách đơn giản hơn.
+4. Thử câu hỏi lý thuyết.
+5. Thử bài toán định lượng và kiểm tra đủ bốn bước.
+6. Thử hỏi về tài liệu trong kho kiến thức nếu tài liệu đã được xử lý.
+7. Thử nhận diện giọng nói và đọc phản hồi.
+8. Thử trường hợp thiếu API key.
+9. Thử trường hợp API bị từ chối.
+10. Kiểm tra frontend không chứa API key.
+11. Kiểm tra website vẫn giữ nguyên giao diện và các chức năng cũ.
+
+Không tuyên bố đã kết nối Gemini chỉ dựa trên việc giao diện xuất hiện hoặc một câu trả lời mẫu được hiển thị.
+
+## VIII. YÊU CẦU HOÀN THÀNH
+
+Hãy chỉnh sửa trực tiếp mã nguồn của dự án hiện tại.
+
+Sau khi thực hiện:
+- Cho biết các tệp đã sửa.
+- Cho biết cách gửi câu hỏi đến Gemini.
+- Xác định secret hoặc biến môi trường nào cần cấu hình.
+- Nêu kết quả kiểm thử kết nối.
+- Nếu API chưa hoạt động, ghi rõ lỗi và hướng khắc phục.
+- Không xóa các tính năng học tập khác.
+- Không tạo một chatbot mới thay thế Gia sư AI hiện có.
+
+*BẮT ĐẦU BẰNG VIỆC KIỂM TRA DỰ ÁN, SAU ĐÓ TÍCH HỢP GEMINI API THẬT VÀO GIA SƯ AI ĐANG CÓ, BẢO ĐẢM LUỒNG HỘI THOẠI HOẠT ĐỘNG VÀ KHÔNG LÀM HỎNG WEBSITE.*
+
